@@ -539,7 +539,7 @@ b {
                                         </select> -->
 
                                         <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input exclusive" id="customSwitch1" value="1" checked>
+                                            <input type="checkbox" class="custom-control-input " id="customSwitch1" value="1" >
                                             <label class="custom-control-label" for="customSwitch1"></label>
                                         </div>
 
