@@ -10,6 +10,7 @@ function ftp_remote($folder , $DestName , $sourceName)
 {
     $ftp = ftp_connect("ftp.offixservices.com");
     ftp_login($ftp, "offix@offixservices.com", "Offix_(*(*");
+    ftp_pasv($ftp, true);
     $file_status = ftp_put($ftp, "/$folder/$sourceName", "$DestName", FTP_BINARY); 
     // ftp_remote('videolong' , '../'.$videolong_full , $sourceName)
     ftp_close($ftp); 
