@@ -382,32 +382,34 @@ if(isset($_POST['submit']))
                 {
 
                     $date_file_name = str_replace("-","",$newsdate);
+                    $time_file_name = date('H:i:s');
+                    $time_file_name = str_replace(":","",$newsdate);
 
-                    $body_path ="../".$newsdate."/".$date_file_name."_".$news_id."_body.".$fileActualExt_body;
+                    $body_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_body.".$fileActualExt_body;
                     $body_tmp_name = $_FILES['descFile']['tmp_name'] ;
                     move_uploaded_file($body_tmp_name, $body_path) ; 
-                    $body_path = $newsdate."/".$date_file_name."_".$news_id."_body.".$fileActualExt_body;
+                    $body_path = $newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_body.".$fileActualExt_body;
 
 
-                    $video_long_path ="../".$newsdate."/".$date_file_name."_".$news_id."_videolong.".$fileActualExt_videolong;
+                    $video_long_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_videolong.".$fileActualExt_videolong;
                     $video_long_tmp_name = $_FILES['videoLongFile']['tmp_name'] ;
                     move_uploaded_file($video_long_tmp_name, $video_long_path) ;  
-                    $video_long_path = $newsdate."/".$date_file_name."_".$news_id."_videolong.".$fileActualExt_videolong;
+                    $video_long_path = $newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_videolong.".$fileActualExt_videolong;
 
-                    $preview_path ="../".$newsdate."/".$date_file_name."_".$news_id."_preview.".$fileActualExt_previewimg;
+                    $preview_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_preview.".$fileActualExt_previewimg;
                     $preview_tmp_name = $_FILES['previewImg']['tmp_name'] ;
                     move_uploaded_file($preview_tmp_name, $preview_path) ;
-                    $preview_path = $newsdate."/".$date_file_name."_".$news_id."_preview.".$fileActualExt_previewimg;
+                    $preview_path = $newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_preview.".$fileActualExt_previewimg;
 
-                    $thumbnail_path ="../".$newsdate."/".$date_file_name."_".$news_id."_thumbnail.".$fileActualExt_thumbImg;
+                    $thumbnail_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_thumbnail.".$fileActualExt_thumbImg;
                     $thumbnail_tmp_name = $_FILES['thumbImg']['tmp_name'] ;
                     move_uploaded_file($thumbnail_tmp_name, $thumbnail_path) ;
-                    $thumbnail_path = $newsdate."/".$date_file_name."_".$news_id."_thumbnail.".$fileActualExt_thumbImg;
+                    $thumbnail_path = $newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_thumbnail.".$fileActualExt_thumbImg;
 
-                    $videolazy_path ="../".$newsdate."/".$date_file_name."_".$news_id."_videoLazy.".$fileActualExt_videoLazy;
+                    $videolazy_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_videoLazy.".$fileActualExt_videoLazy;
                     $videolazy_tmp_name = $_FILES['videoLazy']['tmp_name'] ;
                     move_uploaded_file($videolazy_tmp_name, $videolazy_path) ;
-                    $videolazy_path = $newsdate."/".$date_file_name."_".$news_id."_videoLazy.".$fileActualExt_videoLazy;
+                    $videolazy_path = $newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_videoLazy.".$fileActualExt_videoLazy;
 
 
                     $counter = 0 ;
@@ -417,9 +419,9 @@ if(isset($_POST['submit']))
                         
                         $fileTmpName_photo = $_FILES['galleryImage']['tmp_name'][$p];  
                         $fileActualExt_photo = strtolower(end($fileExt_photo));                     
-                        $gallery_path ="../".$newsdate."/".$date_file_name."_".$news_id."_gallery_".$counter.".".$fileActualExt_photo;
+                        $gallery_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_gallery_".$counter.".".$fileActualExt_photo;
                         move_uploaded_file($fileTmpName_photo, $gallery_path) ;
-                        $gallery_path =$newsdate."/".$date_file_name."_".$news_id."_gallery_".$counter.".".$fileActualExt_photo;
+                        $gallery_path =$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_gallery_".$counter.".".$fileActualExt_photo;
                         array_push($gallery_arr , $gallery_path);               
 
                         $counter++ ;
@@ -429,10 +431,10 @@ if(isset($_POST['submit']))
 
                     if($audio_exist == true)
                     {
-                        $audio_path ="../".$newsdate."/".$date_file_name."_".$news_id."_audio.".$fileActualExt_audio;
+                        $audio_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_audio.".$fileActualExt_audio;
                         $audio_tmp_name = $_FILES['audio']['tmp_name'] ;
                         move_uploaded_file($audio_tmp_name, $audio_path) ;
-                        $audio_path =$newsdate."/".$date_file_name."_".$news_id."_audio.".$fileActualExt_audio;
+                        $audio_path =$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_audio.".$fileActualExt_audio;
 
                         $audio_path = "'$audio_path'";
 
@@ -444,10 +446,10 @@ if(isset($_POST['submit']))
 
                     if($videoExtra_exist == true)
                     {
-                        $videoExtra_path ="../".$newsdate."/".$date_file_name."_".$news_id."_videoextra.".$fileActualExt_videoExtra;
+                        $videoExtra_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_videoextra.".$fileActualExt_videoExtra;
                         $videoExtra_tmp_name = $_FILES['videoExtra']['tmp_name'] ;
                         move_uploaded_file($videoExtra_tmp_name, $videoExtra_path) ;
-                        $videoExtra_path =$newsdate."/".$date_file_name."_".$news_id."_videoextra.".$fileActualExt_videoExtra;
+                        $videoExtra_path =$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_videoextra.".$fileActualExt_videoExtra;
 
                         $videoExtra_path = "'$videoExtra_path'";
 

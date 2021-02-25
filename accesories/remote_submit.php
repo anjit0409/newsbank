@@ -177,6 +177,41 @@ function ftp_remote($folder , $DestName , $sourceName)
                 $pushed_by = $_POST['pushed_by'];
                 $pushed_by = mysqli_real_escape_string($connection, $pushed_by);
 
+                if(in_array('newsbody' ,$file_type ))
+                {
+                    if(file_exists('../'.$newsbody_full))
+                    {
+                        $sourceName = explode("/" ,$newsbody_full ) ;
+                        $sourceName = end($sourceName );
+
+                        if(ftp_remote('newsbody' , '../'.$newsbody_full , $sourceName))
+                        { echo "PUSH-1";
+
+                            // $push_videoLong = "'$videolong_full'" ;
+
+                            $push_newsbody = "'$remote_file_server_path/newsbody/$sourceName'" ;
+                        }
+                        else
+                        {
+                            $push_newsbody = "NULL";
+                            $_SESSION['notice_remote'] = "Error";
+                        }
+                       
+                    }
+                    else
+                    {
+                        $push_newsbody = "NULL";
+                    }
+                    
+
+                }
+                else
+                {
+                    $push_newsbody = $newsbody_full_web;
+                }
+
+
+
                 if(in_array('videoLong' ,$file_type ))
                 {
                     if(file_exists('../'.$videolong_full))
@@ -185,7 +220,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $sourceName = end($sourceName );
 
                         if(ftp_remote('videolong' , '../'.$videolong_full , $sourceName))
-                        {
+                        {echo "PUSH-2";
 
                             // $push_videoLong = "'$videolong_full'" ;
 
@@ -219,7 +254,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $sourceName = explode("/" ,$videolazy_full ) ;
                         $sourceName = end($sourceName );
                         if(ftp_remote('videolazy' , '../'.$videolazy_full , $sourceName))
-                        {
+                        {echo "PUSH-3";
                             // $push_videoLazy = "'$videolazy_full'" ;
                             $push_videoLazy = "'$remote_file_server_path/videolazy/$sourceName'" ;
 
@@ -250,7 +285,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $sourceName = explode("/" ,$preview_full ) ;
                         $sourceName = end($sourceName );
                         if(ftp_remote('preview' , '../'.$preview_full , $sourceName))
-                        {
+                        {echo "PUSH-4";
                             // $push_preview = "'$preview_full'" ;
                             $push_preview = "'$remote_file_server_path/preview/$sourceName'" ;
 
@@ -281,7 +316,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $sourceName = explode("/" ,$thumbnail_full ) ;
                         $sourceName = end($sourceName );
                         if(ftp_remote('thumbnail' , '../'.$thumbnail_full , $sourceName))
-                        {
+                        {echo "PUSH-5";
                             // $push_thumbnail = "'$thumbnail_full'" ;
                             $push_thumbnail = "'$remote_file_server_path/thumbnail/$sourceName'" ;
 
@@ -312,7 +347,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $sourceName = explode("/" ,$audio_full ) ;
                         $sourceName = end($sourceName );
                         if(ftp_remote('audio' , '../'.$audio_full , $sourceName))
-                        {
+                        {echo "PUSH-6";
                             // $push_audio = "'$audio_full'" ;
                             $push_audio = "'$remote_file_server_path/audio/$sourceName'" ;
 
@@ -339,7 +374,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                 if(in_array('videoextra' ,$file_type ))
                 {
                     if(file_exists('../'.$videoextra_full))
-                    {
+                    {echo "PUSH-7";
                         $sourceName = explode("/" ,$videoextra_full ) ;
                         $sourceName = end($sourceName );
                         if(ftp_remote('videoextra' , '../'.$videoextra_full , $sourceName))
@@ -395,7 +430,7 @@ function ftp_remote($folder , $DestName , $sourceName)
 
                     $query_new_news_update = "update  web set 
                        videolong = $push_videoLong , videolazy = $push_videoLazy , previewgif = $push_preview ,thumbnail = $push_thumbnail ,
-                        audio = $push_audio  , photos = '$gall_img' , videoextra = $push_videoextra, newsbody = '$newsbody_full',  
+                        audio = $push_audio  , photos = '$gall_img' , videoextra = $push_videoextra, newsbody = $push_newsbody,  
                          pushed_by = '$pushed_by' ,   pushed_date = '$pushed_at' ;";
                         // ) 
                         // VALUES 
@@ -417,7 +452,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         ) 
                         VALUES 
                         ('$news_id',  $push_videoLong ,$push_videoLazy , $push_preview , $push_thumbnail,
-                             $push_audio , '$gall_img', $push_videoextra , '$newsbody_full' , 
+                             $push_audio , '$gall_img', $push_videoextra , $push_newsbody , 
                             '$pushed_by' ,'$pushed_at'
                             
                             )";    
@@ -433,7 +468,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                     $_SESSION['notice_remote'] = "Success";
                 }
                 else
-                {
+                { 
                    
                     $_SESSION['notice_remote'] = "Error";
                 }
