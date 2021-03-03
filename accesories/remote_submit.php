@@ -4,12 +4,16 @@
     include "connection.php";
     session_start();
 
-    $remote_file_server_path = 'https://offixservices.com/localhostftp';
+    // $remote_file_server_path = 'https://offixservices.com/localhostftp';
+
+    $remote_file_server_path = 'https://sanjeebkc.com.np/nepalnewsbank';
 
 function ftp_remote($folder , $DestName , $sourceName)
 {
-    $ftp = ftp_connect("ftp.offixservices.com");
-    ftp_login($ftp, "offix@offixservices.com", "Offix_(*(*");
+    // $ftp = ftp_connect("ftp.offixservices.com");
+    // ftp_login($ftp, "offix@offixservices.com", "Offix_(*(*");
+    $ftp = ftp_connect("ftp.sanjeebkc.com.np");
+    ftp_login($ftp, "nepalnewsbank@sanjeebkc.com.np", "nepalnewsbank");
     ftp_pasv($ftp, true);
     $file_status = ftp_put($ftp, "/$folder/$sourceName", "$DestName", FTP_BINARY); 
     // ftp_remote('videolong' , '../'.$videolong_full , $sourceName)
@@ -41,7 +45,7 @@ function ftp_remote($folder , $DestName , $sourceName)
             if($num_rows_content == 1)
             {
                 $row_content = mysqli_fetch_assoc($run_sql_content);
-
+                $byline_full = $row_content['byline'];
                 $videolong_full = $row_content['videolong'];
                 $preview_full = $row_content['previewgif'];
                 $thumbnail_full = $row_content['thumbnail'];
@@ -466,6 +470,48 @@ function ftp_remote($folder , $DestName , $sourceName)
                 {
                     
                     $_SESSION['notice_remote'] = "Success";
+
+
+                    
+                        $data_array =  array(
+                            "byline" => "$byline_full" , 
+                            "videolong" => "$push_videoLong",
+                            "videolazy" => "$push_videoLazy",
+                            "previewgif" => "$push_preview ",
+                            "thumbnail" => "$push_thumbnail",
+                            "audio" => "$push_audio",
+                            "photos" => "$gall_img",
+                            "videoextra" => "$push_videoextra",
+                            "newsbody" => "$push_newsbody",
+                            );
+
+                            $data = json_encode($data_array);
+
+
+                        $curl = curl_init();
+                        curl_setopt_array($curl, array(                    
+                        CURLOPT_URL => "https://sanjeebkc.com.np/test/test.php",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_TIMEOUT => 30,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "POST",
+                        CURLOPT_POSTFIELDS => $data ,
+                            CURLOPT_HTTPHEADER => array(
+                                "cache-control: no-cache",
+                                "content-type: application/json"
+                            ),
+                        ));
+                    
+                        $response = curl_exec($curl);
+                    
+                        $response = json_decode($response);
+                        $response = json_decode(json_encode($response) , true);
+                        $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                        $err = curl_error($curl);                    
+                        // $response = curl_exec($curl);
+                        curl_close($curl);
+
+
                 }
                 else
                 { 

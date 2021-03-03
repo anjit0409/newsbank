@@ -662,7 +662,7 @@ b {
                                             <option value="basic">Basic</option>
                                             <option value="premium">Premium</option>
                                             <option value="platinum">Platinum</option>
-                                        </select>
+                                        </select>                                       
                                     </div>
                                 </div>
                             </div>
@@ -944,7 +944,7 @@ b {
                 }
             });
         });
-        </script>
+        </script>        
 
         <!-- count character in news title -->
         <script>
