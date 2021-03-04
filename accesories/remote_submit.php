@@ -10,25 +10,25 @@
 
 function ftp_remote($folder , $DestName , $sourceName)
 {
-    // $ftp = ftp_connect("ftp.offixservices.com");
-    // ftp_login($ftp, "offix@offixservices.com", "Offix_(*(*");
-    $ftp = ftp_connect("ftp.sanjeebkc.com.np");
-    ftp_login($ftp, "nepalnewsbank@sanjeebkc.com.np", "nepalnewsbank");
-    ftp_pasv($ftp, true);
-    $file_status = ftp_put($ftp, "/$folder/$sourceName", "$DestName", FTP_BINARY); 
-    // ftp_remote('videolong' , '../'.$videolong_full , $sourceName)
-    ftp_close($ftp); 
+    // // $ftp = ftp_connect("ftp.offixservices.com");
+    // // ftp_login($ftp, "offix@offixservices.com", "Offix_(*(*");
+    // $ftp = ftp_connect("ftp.sanjeebkc.com.np");
+    // ftp_login($ftp, "nepalnewsbank@sanjeebkc.com.np", "nepalnewsbank");
+    // ftp_pasv($ftp, true);
+    // $file_status = ftp_put($ftp, "/$folder/$sourceName", "$DestName", FTP_BINARY); 
+    // // ftp_remote('videolong' , '../'.$videolong_full , $sourceName)
+    // ftp_close($ftp); 
 
-    if(isset($file_status))
-    {
-        return 1 ;
-    }
-    else
-    {
-        return 0 ;
-    }
+    // if(isset($file_status))
+    // {
+    //     return 1 ;
+    // }
+    // else
+    // {
+    //     return 0 ;
+    // }
 
-    //return 1 ;
+    return 1 ;
 }
     
 
@@ -505,7 +505,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         ));
                     
                         $response = curl_exec($curl);
-                    
+                        echo $response ;
                         $response = json_decode($response);
                         $response = json_decode(json_encode($response) , true);
                         $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -553,5 +553,5 @@ function ftp_remote($folder , $DestName , $sourceName)
        header("Location: ". $_SERVER['HTTP_REFERER']);
     // }
 
-    echo $response ;
+    // echo $response ;
     exit();
