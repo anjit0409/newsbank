@@ -87,16 +87,16 @@ if(isset($_POST['submit']))
     && isset($_POST['newsdate']) &&   isset($_POST['lang_selec'])
 
     && isset($_POST['uploaded_by']) && isset($_POST['reporter']) && isset($_POST['camera_man'])  
-    && isset($_POST['district']) && isset($_POST['subs_type'])
+    && isset($_POST['district']) )
     
-    )
+    
     {
         if(!empty($_POST['byLine']) && !empty($_POST['newsTag']) && !empty($_FILES['descFile']['name'])  && !empty($_FILES['videoLongFile']['name'])
         && !empty($_FILES['previewImg']['name']) && count($_FILES['galleryImage']['name']) > 0 && !empty($_FILES['thumbImg']['name'])
         && !empty($_FILES['videoLazy']['name']) 
 
         && !empty($_POST['uploaded_by']) && !empty($_POST['reporter']) && !empty($_POST['camera_man'])  
-        && !empty($_POST['district']) && !empty($_POST['subs_type'])
+        && !empty($_POST['district']) 
         && !empty($_POST['newsdate']) &&   !empty($_POST['lang_selec'])
         
         )
@@ -141,8 +141,7 @@ if(isset($_POST['submit']))
             $district = $_POST['district'];
             $district = mysqli_real_escape_string($connection, $district);
 
-            $subs_type = $_POST['subs_type'];
-            $subs_type = mysqli_real_escape_string($connection, $subs_type);
+            
 
             $lang_selec = $_POST['lang_selec'];
             $lang_selec = mysqli_real_escape_string($connection, $lang_selec);
@@ -158,14 +157,7 @@ if(isset($_POST['submit']))
 
 
            
-            if(isset($_POST['exclusive']) && !empty($_POST['exclusive']) )
-            {
-                $exclusive = 1 ;
-            }
-            else
-            {
-                $exclusive = 0 ;
-            }
+            
 
             
             if (in_array($lang_selec, $news_lang_array))
@@ -466,16 +458,16 @@ if(isset($_POST['submit']))
                                          byline ,                                         
                                          videolong,  videolazy , previewgif ,thumbnail ,
                                          audio ,  photos ,  newsbody ,  videoextra ,
-                                         tag_list ,  isexclusive, uploaded_by , reporter ,
-                                         camera_man , district , subscription_type , news_language 
+                                         tag_list , uploaded_by , reporter ,
+                                         camera_man , district , news_language 
                                         ) 
                                         VALUES 
                                         ('$news_id', '$created_at' ,  '$newsdate' , 
                                          '$byLine' ,
                                          '$video_long_path' ,'$videolazy_path' , '$preview_path' , '$thumbnail_path',
                                          $audio_path , '$gallery_csv' , '$body_path' , $videoExtra_path ,
-                                         '$tags' , '$exclusive','$uploaded_by' ,  '$reporter' , 
-                                         '$camera_man' , '$district' , '$subs_type' , '$lang_selec'
+                                         '$tags' ,'$uploaded_by' ,  '$reporter' , 
+                                         '$camera_man' , '$district', '$lang_selec'
                                                     
                                     )";    
                                 

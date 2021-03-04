@@ -23,14 +23,14 @@ create table nas(
     tag_list  text,   
     
      /* news_type varchar(150),    Update to exclusive boolean*/  
-	isexclusive boolean ,
+	/* isexclusive boolean , */
     
 
     uploaded_by varchar(300),
     reporter varchar(300),
     camera_man varchar(300),
     district varchar(100),
-    subscription_type varchar(100),
+     /* subscription_type varchar(100), */
     news_language varchar(100)
     
    
@@ -40,7 +40,13 @@ create table nas(
 select * from nas;
  ALTER TABLE  nas  
 CHANGE COLUMN isexclusibe isexclusive  
-boolean ;  
+boolean ; 
+
+ALTER TABLE nas
+DROP COLUMN isexclusive; 
+
+ALTER TABLE nas
+DROP COLUMN subscription_type; 
 
 
         
@@ -68,7 +74,6 @@ create table web(
 );
 
 select * from web ;
-
 
 
 

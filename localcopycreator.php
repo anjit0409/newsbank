@@ -411,6 +411,9 @@ b {
                                     <option value="Glamour">Glamour</option>
                                     <option value="frog">Frog</option>
                                     <option value="shark">Shark</option>
+                                    <option value="exclusive">Exclusive</option>
+                                    <option value="featurestory">Feature Story</option>
+                                    
                                 </select>
                             </div>
                             <!-- Select one audio file -->
@@ -517,7 +520,7 @@ b {
                             <div class="row">
                                 <div class="col-lg-6">
 
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="col-lg-12 p-0">11. Is Exclusive?*
                                             <svg data-toggle="popover" title="News Title"
                                                 data-content="Some content inside the popover"
@@ -533,21 +536,94 @@ b {
 
                                         </label>
 
-                                        <!-- <select class="form-control" name="news_type" required>
-                                            <option value='yes' selected>YES</option>
-                                            <option value="no">NO</option>
-                                        </select> -->
 
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input " id="customSwitch1" value="1" >
                                             <label class="custom-control-label" for="customSwitch1"></label>
                                         </div>
 
+                                    </div> -->
+                                    <div class="form-group">
+                                        <label class="col-lg-12 p-0">11. District*
+                                            <svg data-toggle="popover" title="News Title"
+                                                data-content="Some content inside the popover"
+                                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-info-circle float-right help_icon"
+                                                data-toggle="tooltip" data-placement="left" title="Tooltip on left"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                <path
+                                                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                            </svg>
+
+                                        </label>
+                                        <select class="form-control" id="exampleFormControlSelect2" name="district"
+                                            required>
+                                            <option value="kathmandu">Kathmandu</option>
+                                            <option value="bhaktapur">Bhaktapur</option>
+                                            <option value="lalitpur">Lalitpur</option>
+                                        </select>
                                     </div>
 
 
+
                                     <div class="form-group">
-                                        <label class="col-lg-12 p-0">12. Created By*
+                                        <label class="col-lg-12 p-0">12. Reporter*
+                                            <svg data-toggle="popover" title="News Title"
+                                                data-content="Some content inside the popover"
+                                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-info-circle float-right help_icon"
+                                                data-toggle="tooltip" data-placement="left" title="Tooltip on left"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                <path
+                                                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                            </svg>
+
+
+                                        </label>
+                                        <select class="form-control" id="exampleFormControlSelect2" name="reporter"
+                                            required>
+                                            <option value="rabi lamicchane">Rabi Lamicchane</option>
+                                            <option value="prem baniya">Prem Baniya</option>
+                                            <option value="yuvraj kandel">Yuvraj Kandel</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-12 p-0">13. Camera Man*
+                                            <svg data-toggle="popover" title="News Title"
+                                                data-content="Some content inside the popover"
+                                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor" class="bi bi-info-circle float-right help_icon"
+                                                data-toggle="tooltip" data-placement="left" title="Tooltip on left"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                <path
+                                                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                            </svg>
+
+                                        </label>
+                                        <select class="form-control" id="exampleFormControlSelect2" name="camera_man"
+                                            required>
+                                            <option value="shiva pangeni">Shiva Pangeni</option>
+                                            <option value="sanjeeb kC">Sanjeeb KC</option>
+                                            <option value="anish luitel">Anish Luitel</option>
+                                        </select>
+                                    </div>
+
+                               
+
+                                 
+                                </div>
+                                <div class="col-lg-6">
+
+                                    
+                                    <div class="form-group">
+                                        <label class="col-lg-12 p-0">14. Created By*
                                             <svg data-toggle="popover" title="News Title"
                                                 data-content="Some content inside the popover"
                                                 xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -570,80 +646,8 @@ b {
                                         </select>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-lg-12 p-0">13. Reporter*
-                                            <svg data-toggle="popover" title="News Title"
-                                                data-content="Some content inside the popover"
-                                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                fill="currentColor" class="bi bi-info-circle float-right help_icon"
-                                                data-toggle="tooltip" data-placement="left" title="Tooltip on left"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                <path
-                                                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                            </svg>
-
-
-                                        </label>
-                                        <select class="form-control" id="exampleFormControlSelect2" name="reporter"
-                                            required>
-                                            <option value="rabi lamicchane">Rabi Lamicchane</option>
-                                            <option value="prem baniya">Prem Baniya</option>
-                                            <option value="yuvraj kandel">Yuvraj Kandel</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-
-                                    <div class="form-group">
-                                        <label class="col-lg-12 p-0">14. Camera Man*
-                                            <svg data-toggle="popover" title="News Title"
-                                                data-content="Some content inside the popover"
-                                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                fill="currentColor" class="bi bi-info-circle float-right help_icon"
-                                                data-toggle="tooltip" data-placement="left" title="Tooltip on left"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                <path
-                                                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                            </svg>
-
-                                        </label>
-                                        <select class="form-control" id="exampleFormControlSelect2" name="camera_man"
-                                            required>
-                                            <option value="shiva pangeni">Shiva Pangeni</option>
-                                            <option value="sanjeeb kC">Sanjeeb KC</option>
-                                            <option value="anish luitel">Anish Luitel</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-lg-12 p-0">15. District*
-                                            <svg data-toggle="popover" title="News Title"
-                                                data-content="Some content inside the popover"
-                                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                fill="currentColor" class="bi bi-info-circle float-right help_icon"
-                                                data-toggle="tooltip" data-placement="left" title="Tooltip on left"
-                                                viewBox="0 0 16 16">
-                                                <path
-                                                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                <path
-                                                    d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                                            </svg>
-
-                                        </label>
-                                        <select class="form-control" id="exampleFormControlSelect2" name="district"
-                                            required>
-                                            <option value="kathmandu">Kathmandu</option>
-                                            <option value="bhaktapur">Bhaktapur</option>
-                                            <option value="lalitpur">Lalitpur</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-lg-12 p-0">16. Available for*
+                                    <!-- <div class="form-group">
+                                        <label class="col-lg-12 p-0">15. Available for*
                                             <svg data-toggle="popover" title="News Title"
                                                 data-content="Some content inside the popover"
                                                 xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -663,7 +667,7 @@ b {
                                             <option value="premium">Premium</option>
                                             <option value="platinum">Platinum</option>
                                         </select>                                       
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 

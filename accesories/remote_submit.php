@@ -484,6 +484,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                             "photos" => "$gall_img",
                             "videoextra" => "$push_videoextra",
                             "newsbody" => "$push_newsbody",
+                            "pid" => "$news_id",
                             );
 
                             $data = json_encode($data_array);
@@ -509,7 +510,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $response = json_decode(json_encode($response) , true);
                         $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
                         $err = curl_error($curl);                    
-                         $response = curl_exec($curl);
+                        //  $response = curl_exec($curl);
                         curl_close($curl);
 
 
