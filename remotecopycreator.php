@@ -635,7 +635,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         </span>
                                         ';
                                         $rem_to_push = 1 ;
-                                        $class_comp = 'compulsory';
+                                        $class_comp = '';
                                         }
                                     
                                      
@@ -706,7 +706,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                             ';
                                             $ischecked = 'checked';
                                             $rem_to_push = 1 ;
-                                            $class_comp = 'compulsory';
+                                            $class_comp = '';
                                         }
                                     
                                         
