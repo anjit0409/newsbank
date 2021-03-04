@@ -383,7 +383,7 @@ if(isset($_POST['submit']))
 
                     $date_file_name = str_replace("-","",$newsdate);
                     $time_file_name = date('H:i:s');
-                    $time_file_name = str_replace(":","",$newsdate);
+                    $time_file_name = str_replace(":","",$time_file_name);
 
                     $body_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_body.".$fileActualExt_body;
                     $body_tmp_name = $_FILES['descFile']['tmp_name'] ;
