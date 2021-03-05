@@ -1,4 +1,3 @@
-1. Remote SQL
-2. NAS to Cpanel file transfer
-3. while push, web -> destination location store of wordpress.
-4. cpanel ma file gayesi matra db rakhne 
+1. Progress Bar
+2. If already published on wp disable publish button
+3. Hold wp id for update case.
