@@ -28,11 +28,11 @@ function ftp_remote($folder , $DestName , $sourceName)
     //     return 0 ;
     // }
 
-    return 1 ;
+     return 1 ;
 }
     
 
-    if(isset($_POST['submit']))
+    if(isset($_POST['submit']) || isset($_POST['submit_push']))
     {
         if(isset($_POST['news_id']) &&  !empty($_POST['news_id']))
         {  
@@ -472,8 +472,8 @@ function ftp_remote($folder , $DestName , $sourceName)
                     
                     $_SESSION['notice_remote'] = "Success";
 
-
-                    
+                    if(isset($_POST['submit_push']))
+                    {
                         $data_array =  array(
                             "byline" => "$byline_full" , 
                             "videolong" => "$push_videoLong",
@@ -512,6 +512,9 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $err = curl_error($curl);                    
                         //  $response = curl_exec($curl);
                         curl_close($curl);
+                    }
+                    
+                        
 
 
                 }

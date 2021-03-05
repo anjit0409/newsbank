@@ -302,6 +302,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         ';
                                         $ischecked = '';
                                         $class_comp = '';
+                                        $sta_a = 1 ;
                                     }
                                     else
                                     {
@@ -330,7 +331,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     </svg></span>
                                         ';
                                         $ischecked = '';
-                                        $class_comp = '';
+                                        $class_comp = 'compulsory miss';
                                 }
 
                             ?>
@@ -363,6 +364,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         ';
                                         $ischecked = '';
                                         $class_comp = '';
+                                        $sta_b = 1 ;
                                     }
                                     else
                                     {
@@ -391,7 +393,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     </svg></span>
                                         ';
                                         $ischecked = '';
-                                        $class_comp = '';
+                                        $class_comp = 'compulsory miss';
                                 }
 
                             ?>
@@ -428,6 +430,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         ';
                                         $ischecked = '';
                                         $class_comp = '';
+                                        $sta_c = 1 ;
                                     }
                                     else
                                     {
@@ -449,7 +452,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     $input = 'disabled';
                                     $value_input = '';
                                     $ischecked = '';
-                                    $class_comp = '';
+                                    $class_comp = 'compulsory miss';
                                     $message = '<span>'.$videolazy.'</span><span class="float-right">
                                     <span class="text-danger pr-2">Video Lazy File Doesnt Exist in the Server</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
@@ -492,6 +495,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         ';
 
                                         $class_comp = '';
+                                        $sta_d = 1 ;
                                     }
                                     else
                                     {
@@ -520,7 +524,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                                     </svg></span>
                                         ';
-                                        $class_comp = '';
+                                        $class_comp = 'compulsory miss';
                                 }
 
                             
@@ -557,6 +561,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         ';
 
                                         $class_comp = '';
+                                        $sta_e = 1 ;
                                 }
                                 else
                                 {
@@ -583,7 +588,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                                 </svg></span>
                                     ';
-                                    $class_comp = '';
+                                    $class_comp = 'compulsory miss';
                             }
 
                            
@@ -624,6 +629,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                             </svg></span>
                                             ';
                                             $class_comp = '';
+                                            $sta_f = 1 ;
                                         }
                                         else
                                         {
@@ -635,7 +641,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         </span>
                                         ';
                                         $rem_to_push = 1 ;
-                                        $class_comp = 'compulsory';
+                                        $class_comp = '';
                                         }
                                     
                                      
@@ -652,7 +658,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                                         </svg></span>
                                             ';
-                                            $class_comp = '';
+                                            $class_comp = 'compulsory miss';
                                     }
 
                                   
@@ -695,6 +701,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                             </svg></span>
                                             ';
                                             $class_comp = '';
+                                            $sta_g = 1 ;
                                             
                                         }
                                         else
@@ -722,7 +729,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                                         </svg></span>
                                             ';
-                                            $class_comp = 'compulsory';
+                                            $class_comp = 'compulsory miss';
                                     }
 
                             ?>
@@ -752,6 +759,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     <?php
                                     $gal_counter = 1 ;
                                     $index = 0 ;
+                                    $sta_array = array();
                                     foreach($photos_array as $ph_arr)
                                     {
 
@@ -773,12 +781,14 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                             {
                                                 $input = 'disabled' ;
                                                 $selected = '';
+                                                array_push($sta_array , 1);
                                             }
                                             else
                                             {
                                                 $input = '' ;
                                                 $selected = 'checked';
                                                 $rem_to_push = 1 ;
+                                                array_push($sta_array , 0);
                                             }
 
                                 ?>
@@ -812,9 +822,67 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                             <input type="hidden" name="news_id" value="<?php echo $content_id ; ?>">
                             <!-- <span class="text-dark mr-2"><small>you can only select contents for one news</span></span> -->
-                            <button type="submit" class="btn btn-info sub_push" value="submit" name="submit">
+
+                            <?php
+                           
+
+                            if(in_array(0 , $sta_array))
+                            {
+                                $sta_h = 0 ;
+                            }
+                            else
+                            {
+                                $sta_h = 1 ;
+                            }
+
+
+                                if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e  && $sta_h)
+                                {
+                                    $dis_pushhh = 'disabled';
+                                    $curs_style= 'not-allowed';
+
+                                }
+                                else
+                                {
+                                    $dis_pushhh = '';
+                                    $curs_style= '';
+
+                                }
+
+                                if($sta_f || $sta_g)
+                                {
+                                    $dis_pushhhh = 'disabled';
+                                    $curs_stylee= 'not-allowed';
+
+                                }
+
+                                else
+                                {
+                                    $dis_pushhhh = '';
+                                    $curs_stylee= '';
+
+                                }
+
+                            ?>
+                            <button type="submit" class="btn btn-info sub_push" style="cursor: <?php echo $curs_style; echo  $curs_stylee ;?>"  <?php echo $dis_pushhh ; ?> <?php echo $dis_pushhhh ; ?> value="submit" name="submit">
                                 Push data to remote
                             </button>
+                            <span id="error_push"></span>
+                            <span id="error_push_miss"></span>
+
+                            <p class="h4 text-info mt-3 "><b>Step 7.</b> </p>
+                            <?php
+                                if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e)
+                                {
+                                    $dis_pushhh = '';
+                                }
+                                else
+                                {
+                                    $dis_pushhh = 'disabled';
+                                    $curs_style_create= 'not-allowed';
+                                }
+                            ?>
+                            <button class="btn btn-info" style="cursor:<?php echo  $curs_style_create ; ?>; " <?php echo $dis_pushhh ; ?> type="submit" name="submit_push">Create Post </button>
                         </div>
 
                         <?php
@@ -981,14 +1049,29 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
 
     var checkBoxes = $('.compulsory'),
-            submitButton = $('.sub_push');
+    submitButton = $('.sub_push');
+
+                if($('.miss').length > 0)
+                {
+                    $("#error_push_miss").html("Error: Please copy the missing file and refresh the tool.").css("color","red");
+                    submitButton.addClass('disabled');
+
+                }
+               
+            
+
+
+
+            
 
         checkBoxes.change(function () {
             submitButton.attr("disabled", checkBoxes.is(":not(:checked)"));
             if(checkBoxes.is(":not(:checked)")) {
                 submitButton.addClass('disabled');
+                $("#error_push").html("Error: Please select all files.<br>").css("color","red");
             } else {
                 submitButton.removeClass('disabled');
+                $("#error_push").html("");
             }       
         });
     </script>

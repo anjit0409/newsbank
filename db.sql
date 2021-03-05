@@ -75,7 +75,7 @@ create table web(
 
 select * from web ;
 
-
+drop table web ;
 
 
 
