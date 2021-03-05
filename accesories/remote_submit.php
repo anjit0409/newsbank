@@ -10,26 +10,37 @@
 
 function ftp_remote($folder , $DestName , $sourceName)
 {
-    // // $ftp = ftp_connect("ftp.offixservices.com");
-    // // ftp_login($ftp, "offix@offixservices.com", "Offix_(*(*");
-    // $ftp = ftp_connect("ftp.sanjeebkc.com.np");
-    // ftp_login($ftp, "nepalnewsbank@sanjeebkc.com.np", "nepalnewsbank");
-    // ftp_pasv($ftp, true);
-    // $file_status = ftp_put($ftp, "/$folder/$sourceName", "$DestName", FTP_BINARY); 
-    // // ftp_remote('videolong' , '../'.$videolong_full , $sourceName)
-    // ftp_close($ftp); 
+    // $ftp = ftp_connect("ftp.offixservices.com");
+    // ftp_login($ftp, "offix@offixservices.com", "Offix_(*(*");
+    $ftp = ftp_connect("ftp.sanjeebkc.com.np");
+    ftp_login($ftp, "nepalnewsbank@sanjeebkc.com.np", "nepalnewsbank");
+    ftp_pasv($ftp, true);
+    $file_status = ftp_put($ftp, "/$folder/$sourceName", "$DestName", FTP_BINARY); 
+    // ftp_remote('videolong' , '../'.$videolong_full , $sourceName)
+    ftp_close($ftp); 
 
-    // if(isset($file_status))
-    // {
-    //     return 1 ;
-    // }
-    // else
-    // {
-    //     return 0 ;
-    // }
+    if(isset($file_status))
+    {
+        return 1 ;
+    }
+    else
+    {
+        return 0 ;
+    }
 
-     return 1 ;
+    
 }
+
+// function write_log($text)
+// {
+//     $myfile = fopen("../pushlog.txt", "w") or die("Unable to open file!");   
+//     // $text = "$sourceName News  Body Pushed\n";
+//     fwrite($myfile, $text);
+//     fclose($myfile);
+
+// }
+
+
     
 
     if(isset($_POST['submit']) || isset($_POST['submit_push']))
@@ -139,8 +150,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                 }
 
                
-
-
+            $myfile = fopen("../pushlog.txt", "w+") or die("Unable to open file!");   
                 
 
                 if(isset($_POST['gall_img']))
@@ -158,9 +168,18 @@ function ftp_remote($folder , $DestName , $sourceName)
                             {
                                 $gal_img_arr = "$remote_file_server_path/gallery/$sourceName" ;
                                 array_push($gallery_full_web_arr , $gal_img_arr);
+
+                                $text = "$sourceName Gallery Photo Pushed\n";
+                                fwrite($myfile, $text);
+
+                                
                             }
                             else
                             {
+                                $text = "$sourceName Gallery Photo Failed to Pushed\n";
+                                
+
+                                fwrite($myfile, $text);
                                 $_SESSION['notice_remote'] = "Error";
                             }
 
@@ -178,6 +197,10 @@ function ftp_remote($folder , $DestName , $sourceName)
 
 
                 $file_type = $_POST['file_name'];
+                if( isset($_POST['submit_push']))
+                {
+                    $file_type = array();
+                }
 
                 $pushed_by = $_POST['pushed_by'];
                 $pushed_by = mysqli_real_escape_string($connection, $pushed_by);
@@ -193,12 +216,19 @@ function ftp_remote($folder , $DestName , $sourceName)
                         { 
 
                             // $push_videoLong = "'$videolong_full'" ;
+                            $text = "$sourceName News  Body Pushed\n";
+                            fwrite($myfile, $text);
+                            
 
                             $push_newsbody = "'$remote_file_server_path/newsbody/$sourceName'" ;
                         }
                         else
                         {
                             $push_newsbody = "NULL";
+                            $text = "$sourceName News Body Failed to Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $_SESSION['notice_remote'] = "Error";
                         }
                        
@@ -228,12 +258,20 @@ function ftp_remote($folder , $DestName , $sourceName)
                         {
 
                             // $push_videoLong = "'$videolong_full'" ;
+                            $text = "$sourceName Video Long Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
 
                             $push_videoLong = "'$remote_file_server_path/videolong/$sourceName'" ;
                         }
                         else
                         {
                             $push_videoLong = "NULL";
+                            $text = "$sourceName Video Long Failed to Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $_SESSION['notice_remote'] = "Error";
                         }
                        
@@ -261,12 +299,20 @@ function ftp_remote($folder , $DestName , $sourceName)
                         if(ftp_remote('videolazy' , '../'.$videolazy_full , $sourceName))
                         {
                             // $push_videoLazy = "'$videolazy_full'" ;
+                            $text = "$sourceName Video Lazy Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $push_videoLazy = "'$remote_file_server_path/videolazy/$sourceName'" ;
 
                         }
                         else
                         {
                             $push_videoLazy = "NULL";
+                            $text = "$sourceName Video Lazy Failed to Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $_SESSION['notice_remote'] = "Error";
                         }
 
@@ -292,12 +338,20 @@ function ftp_remote($folder , $DestName , $sourceName)
                         if(ftp_remote('preview' , '../'.$preview_full , $sourceName))
                         {
                             // $push_preview = "'$preview_full'" ;
+                            $text = "$sourceName Preview Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $push_preview = "'$remote_file_server_path/preview/$sourceName'" ;
 
                         }
                         else
                         {
                             $push_preview = "NULL";
+                            $text = "$sourceName Preview Failed to Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $_SESSION['notice_remote'] = "Error";
                         }
                          
@@ -323,12 +377,20 @@ function ftp_remote($folder , $DestName , $sourceName)
                         if(ftp_remote('thumbnail' , '../'.$thumbnail_full , $sourceName))
                         {
                             // $push_thumbnail = "'$thumbnail_full'" ;
+                            $text = "$sourceName Thumbnail Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $push_thumbnail = "'$remote_file_server_path/thumbnail/$sourceName'" ;
 
                         }
                         else
                         {
                             $push_thumbnail = "NULL";
+                            $text = "$sourceName Thumbnail Failed to Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $_SESSION['notice_remote'] = "Error";
                         }
 
@@ -354,12 +416,20 @@ function ftp_remote($folder , $DestName , $sourceName)
                         if(ftp_remote('audio' , '../'.$audio_full , $sourceName))
                         {
                             // $push_audio = "'$audio_full'" ;
+                            $text = "$sourceName Audio Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $push_audio = "'$remote_file_server_path/audio/$sourceName'" ;
 
                         }
                         else
                         {
                             $push_audio = "NULL";
+                            $text = "$sourceName Audio Failed to Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $_SESSION['notice_remote'] = "Error";
                         }
 
@@ -385,12 +455,20 @@ function ftp_remote($folder , $DestName , $sourceName)
                         if(ftp_remote('videoextra' , '../'.$videoextra_full , $sourceName))
                         {
                             // $push_videoextra = "'$videoextra_full'" ;
+                            $text = "$sourceName Video Extra  Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $push_videoextra = "'$remote_file_server_path/videoextra/$sourceName'" ;
 
                         }
                         else
                         {
                             $push_videoextra = "NULL";
+                            $text = "$sourceName Video Extra Failed to Pushed\n";
+                            fwrite($myfile, $text);
+                            
+
                             $_SESSION['notice_remote'] = "Error";
                         }
                         
@@ -404,7 +482,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                 {
                     $push_videoextra = $videoextra_full_web;
                 }
-
+                fclose($myfile);
 
 
                 // if(in_array('videoextra' ,$file_type ))
