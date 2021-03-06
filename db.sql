@@ -61,7 +61,7 @@ create table web(
     previewgif  varchar(200),
     thumbnail  varchar(200),  
     audio  varchar(200),
-    photos  varchar(200),   
+    photos  text,   
     videoextra  varchar(200),
     
     newsbody  text,
