@@ -836,7 +836,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                             }
 
 
-                                if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e  && $sta_h)
+                                if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e  && $sta_h && $sta_g && $sta_f)
                                 {
                                     $dis_pushhh = 'disabled';
                                     $curs_style= 'not-allowed';
@@ -849,22 +849,22 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                 }
 
-                                if($sta_f || $sta_g)
-                                {
-                                    $dis_pushhhh = 'disabled';
-                                    $curs_stylee= 'not-allowed';
+                                // if($sta_g)
+                                // {
+                                //     $dis_pushhhh = 'disabled';
+                                //     $curs_stylee= 'not-allowed';
 
-                                }
+                                // }
 
-                                else
-                                {
-                                    $dis_pushhhh = '';
-                                    $curs_stylee= '';
+                                // else
+                                // {
+                                //     $dis_pushhhh = '';
+                                //     $curs_stylee= '';
 
-                                }
+                                // }
 
                             ?>
-                            <button type="submit" class="btn btn-info sub_push" style="cursor: <?php echo $curs_style; echo  $curs_stylee ;?>"  <?php echo $dis_pushhh ; ?> <?php echo $dis_pushhhh ; ?> value="submit" name="submit">
+                            <button type="submit" class="btn btn-info sub_push" style="cursor: <?php echo $curs_style; echo  $curs_stylee ;?>"  <?php echo $dis_pushhh ; ?> <?php //echo $dis_pushhhh ; ?> value="submit" name="submit">
                                 Push data to remote
                             </button>
                             <span id="error_push"></span>
