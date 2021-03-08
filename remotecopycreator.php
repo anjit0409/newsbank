@@ -46,14 +46,71 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
     <title>NEPAL NEWS BANK DASHBOARD</title>
 
-<style>
+    <style>
     .disabled {
         cursor: no-drop;
-}
-</style>
+    }
+    </style>
+    <style>
+    /* body{width:610px;} */
+    #uploadForm {
+        border-top: #F0F0F0 2px solid;
+        background: #FAF8F8;
+        padding: 10px;
+    }
+
+    #uploadForm label {
+        margin: 2px;
+        font-size: 1em;
+        font-weight: bold;
+    }
+
+    .demoInputBox {
+        padding: 5px;
+        border: #F0F0F0 1px solid;
+        border-radius: 4px;
+        background-color: #FFF;
+    }
+
+    #progress-bar {
+        background-color: #12CC1A;
+        height: 20px;
+        color: #FFFFFF;
+        width: 0%;
+        -webkit-transition: width .3s;
+        -moz-transition: width .3s;
+        transition: width .3s;
+    }
+
+    .btnSubmit {
+        background-color: #09f;
+        border: 0;
+        padding: 10px 40px;
+        color: #FFF;
+        border: #F0F0F0 1px solid;
+        border-radius: 4px;
+    }
+
+    #progress-div {
+        border: #0FA015 1px solid;
+        padding: 5px 0px;
+        margin: 30px 0px;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    #targetLayer {
+        width: 100%;
+        text-align: center;
+    }
+    </style>
 </head>
 
 <body>
+
+
+
+
 
     <nav class="navbar shadow-lg navbar-dark bg-primary mb-4">
         <a class="navbar-brand" href="#">
@@ -79,12 +136,18 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                 </form>
             </div>
+
             <?php
 
                 if($num_rows_byline != 0)
                     {
             ?>
-            <form method="POST" action="accesories/remote_submit.php">
+            <form method="POST"   action="accesories/remote_submit.php" >
+            <!--   id="remote_form"-->
+
+               
+
+                <div id="loader-icon" style="display:none;"><img src="LoaderIcon.gif" /></div>
 
                 <div class="card-body">
                     <div class="row">
@@ -287,7 +350,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                             <div class="list-group">
 
-                            <?php
+                                <?php
 
                                 if(file_exists($newsbody_full))
                                 {
@@ -339,14 +402,16 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="file_name[]" 
-                                                aria-label="Checkbox for following text input" <?php echo $ischecked ; ?>
-                                                class="files big-checkbox <?php echo $class_comp ; ?>" value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
+                                            <input type="checkbox" name="file_name[]"
+                                                aria-label="Checkbox for following text input"
+                                                <?php echo $ischecked ; ?>
+                                                class="files big-checkbox <?php echo $class_comp ; ?>"
+                                                value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
                                         </div>
                                     </div>
 
-                                
-                                        <div class="form-control"><?php echo $message ; ?></div>
+
+                                    <div class="form-control"><?php echo $message ; ?></div>
                                 </div>
 
                                 <?php
@@ -401,20 +466,22 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="file_name[]" 
-                                                aria-label="Checkbox for following text input" <?php echo $ischecked ; ?>
-                                                class="files big-checkbox <?php echo $class_comp ; ?>" value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
+                                            <input type="checkbox" name="file_name[]"
+                                                aria-label="Checkbox for following text input"
+                                                <?php echo $ischecked ; ?>
+                                                class="files big-checkbox <?php echo $class_comp ; ?>"
+                                                value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
                                         </div>
                                     </div>
 
-                                
-                                        <div class="form-control"><?php echo $message ; ?></div>
+
+                                    <div class="form-control"><?php echo $message ; ?></div>
                                 </div>
 
 
 
 
-                            <?php
+                                <?php
 
                                 if(file_exists($videolazy_full))
                                 {
@@ -466,9 +533,11 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="file_name[]" 
-                                                aria-label="Checkbox for following text input " <?php echo $ischecked ; ?>
-                                                class="files big-checkbox <?php echo $class_comp ; ?>" value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
+                                            <input type="checkbox" name="file_name[]"
+                                                aria-label="Checkbox for following text input "
+                                                <?php echo $ischecked ; ?>
+                                                class="files big-checkbox <?php echo $class_comp ; ?>"
+                                                value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
                                         </div>
                                     </div>
                                     <div class="form-control"><?php echo $message ; ?></div>
@@ -534,8 +603,10 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input type="checkbox" name="file_name[]"
-                                                aria-label="Checkbox for following text input" <?php echo $ischecked ; ?>
-                                                class="files big-checkbox <?php echo $class_comp ; ?>"  value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
+                                                aria-label="Checkbox for following text input"
+                                                <?php echo $ischecked ; ?>
+                                                class="files big-checkbox <?php echo $class_comp ; ?>"
+                                                value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
                                         </div>
                                     </div>
                                     <div class="form-control"><?php echo $message ; ?></div>
@@ -597,8 +668,10 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input type="checkbox" name="file_name[]"
-                                                aria-label="Checkbox for following text input" <?php echo $ischecked ; ?>
-                                                class="files big-checkbox <?php echo $class_comp ; ?>" value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
+                                                aria-label="Checkbox for following text input"
+                                                <?php echo $ischecked ; ?>
+                                                class="files big-checkbox <?php echo $class_comp ; ?>"
+                                                value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
                                         </div>
                                     </div>
                                     <div class="form-control"><?php echo $message ; ?></div>
@@ -667,8 +740,10 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="file_name[]" value="<?php echo $value_input ; ?>" <?php echo $input ; ?>
-                                                aria-label="Checkbox for following text input"   <?php echo $ischecked ; ?>
+                                            <input type="checkbox" name="file_name[]"
+                                                value="<?php echo $value_input ; ?>" <?php echo $input ; ?>
+                                                aria-label="Checkbox for following text input"
+                                                <?php echo $ischecked ; ?>
                                                 class="files big-checkbox <?php echo $class_comp ; ?>">
                                         </div>
                                     </div>
@@ -737,8 +812,10 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 <div class="input-group ">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="file_name[]" value="<?php echo $value_input ; ?>" <?php echo $input ; ?>
-                                                aria-label="Checkbox for following text input" <?php echo $ischecked ; ?>
+                                            <input type="checkbox" name="file_name[]"
+                                                value="<?php echo $value_input ; ?>" <?php echo $input ; ?>
+                                                aria-label="Checkbox for following text input"
+                                                <?php echo $ischecked ; ?>
                                                 class="files big-checkbox <?php echo $class_comp ; ?>">
                                         </div>
                                     </div>
@@ -793,8 +870,9 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                 ?>
                                     <li>
-                                        <input type="checkbox" name="gall_img[]" value="<?php echo $ph_arr ; ?>" 
-                                            id="cb<?php echo $gal_counter ; ?>" class="files" <?php echo $selected ; ?>  <?php echo $input ; ?>   />
+                                        <input type="checkbox" name="gall_img[]" value="<?php echo $ph_arr ; ?>"
+                                            id="cb<?php echo $gal_counter ; ?>" class="files" <?php echo $selected ; ?>
+                                            <?php echo $input ; ?> />
                                         <label for="cb<?php echo $gal_counter ; ?>"><img
                                                 src="<?php echo $ph_arr ; ?>" /></label>
                                     </li>
@@ -808,8 +886,10 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 </ul>
                                 <p class="h4 text-info "><b>Step 5.</b> Pushed By</p>
                                 <select class="form-control form-control-sm" name="pushed_by">
-                                    <option <?php  if($pushed_by_web == 'sanjeeb kc') echo 'selected';   ?> value="sanjeeb kc">Sanjeeb KC</option>
-                                    <option <?php  if($pushed_by_web == 'publisher 2') echo 'selected';   ?> value="publisher 2">Publisher 2</option>
+                                    <option <?php  if($pushed_by_web == 'sanjeeb kc') echo 'selected';   ?>
+                                        value="sanjeeb kc">Sanjeeb KC</option>
+                                    <option <?php  if($pushed_by_web == 'publisher 2') echo 'selected';   ?>
+                                        value="publisher 2">Publisher 2</option>
 
                                 </select>
                             </div>
@@ -833,6 +913,24 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                             else
                             {
                                 $sta_h = 1 ;
+                            }
+
+                            if(isset($sta_g))
+                            {
+                                $sta_g = $sta_g ;
+                            }
+                            else
+                            {
+                                $sta_g = 1 ;
+                            }
+
+                            if(isset($sta_f))
+                            {
+                                $sta_f = $sta_f ;
+                            }
+                            else
+                            {
+                                $sta_f = 1 ;
                             }
 
 
@@ -864,7 +962,9 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                 // }
 
                             ?>
-                            <button type="submit" class="btn btn-info sub_push" style="cursor: <?php echo $curs_style; echo  $curs_stylee ;?>"  <?php echo $dis_pushhh ; ?> <?php //echo $dis_pushhhh ; ?> value="submit" name="submit">
+                            <button type="submit" class="btn btn-info sub_push"
+                                style="cursor: <?php echo $curs_style; echo  $curs_stylee ;?>"
+                                <?php echo $dis_pushhh ; ?> <?php //echo $dis_pushhhh ; ?> value="submit" name="submit">
                                 Push data to remote
                             </button>
                             <span id="error_push"></span>
@@ -882,7 +982,8 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                     $curs_style_create= 'not-allowed';
                                 }
                             ?>
-                            <button class="btn btn-info" style="cursor:<?php echo  $curs_style_create ; ?>; " <?php echo $dis_pushhh ; ?> type="submit" name="submit_push">Create Post </button>
+                            <button class="btn btn-info" style="cursor:<?php echo  $curs_style_create ; ?>; "
+                                <?php echo $dis_pushhh ; ?> type="submit" name="submit_push">Create Post </button>
                         </div>
 
                         <?php
@@ -921,18 +1022,27 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                      ?>
 
                     <div class="alert m-3 alert-success fade show" role="alert"
-                                style="background-color: <?php echo $bg_color ; ?>; color:<?php echo $color ; ?>">
-                                <strong style="color:<?php echo $color_down ; ?>">Notice : </strong>
-                                <?php echo $notice; ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
+                        style="background-color: <?php echo $bg_color ; ?>; color:<?php echo $color ; ?>">
+                        <strong style="color:<?php echo $color_down ; ?>">Notice : </strong>
+                        <?php echo $notice; ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
 
                 </div>
 
+
+
+
+
             </form>
+            <div class="form-group" id="process" style="display:none;">
+        <div class="progress">
+       <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="">
+       </div>
+      </div
             <?php
                     }
                     else
@@ -974,58 +1084,63 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                 ?>
             <div class="card-body">
                 <div class="card-body text-center " style="height:400px">
-                <h3 style="padding-top:100px">
-                <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 pb-2" width="45" height="45" fill="currentColor" class="bi bi-calendar-x" viewBox="0 0 16 16">
-  <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
-  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-</svg>
-                No news available on selected date. Please select date between : </h3>
-                <?php
+                    <h3 style="padding-top:100px">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 pb-2" width="45" height="45"
+                            fill="currentColor" class="bi bi-calendar-x" viewBox="0 0 16 16">
+                            <path
+                                d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z" />
+                            <path
+                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                        </svg>
+                        No news available on selected date. Please select date between : </h3>
+                    <?php
                     if(isset($min_date))
                     {
                 ?>
                     <b>Earliest News Date:</b> <?php echo $min_date ; ?>
-                <?php
+                    <?php
                     }
                     else
                     {                        
                 ?>
                     <b>Earliest News Date:</b> Earliest news date not available.
-                <?php
+                    <?php
                     }
                 ?>
-                <br>
-                <?php
+                    <br>
+                    <?php
                     if(isset($max_date))
                     {
                 ?>
                     <b>Latest News Date:</b> <?php echo $max_date ; ?>
-                <?php
+                    <?php
                     }
                     else
                     {
                 ?>
                     <b>Latest News Date:</b> Latest news date not available.
+                    <?php
+                    }
+                ?>
+
+                </div>
                 <?php
                     }
                 ?>
 
             </div>
-            <?php
-                    }
-                ?>
-
         </div>
-    </div>
 
-        </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
+    </script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
+
 
     <script>
     $(document).on('click', '.files', function() {
@@ -1049,32 +1164,120 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
 
     var checkBoxes = $('.compulsory'),
-    submitButton = $('.sub_push');
+        submitButton = $('.sub_push');
 
-                if($('.miss').length > 0)
-                {
-                    $("#error_push_miss").html("Error: Please copy the missing file and refresh the tool.").css("color","red");
-                    submitButton.addClass('disabled');
+    if ($('.miss').length > 0) {
+        $("#error_push_miss").html("Error: Please copy the missing file and refresh the tool.").css("color", "red");
+        submitButton.addClass('disabled');
 
-                }
-               
-            
+    }
 
 
 
-            
 
-        checkBoxes.change(function () {
-            submitButton.attr("disabled", checkBoxes.is(":not(:checked)"));
-            if(checkBoxes.is(":not(:checked)")) {
-                submitButton.addClass('disabled');
-                $("#error_push").html("Error: Please select all files.<br>").css("color","red");
-            } else {
-                submitButton.removeClass('disabled');
-                $("#error_push").html("");
-            }       
-        });
+
+
+
+    checkBoxes.change(function() {
+        submitButton.attr("disabled", checkBoxes.is(":not(:checked)"));
+        if (checkBoxes.is(":not(:checked)")) {
+            submitButton.addClass('disabled');
+            $("#error_push").html("Error: Please select all files.<br>").css("color", "red");
+        } else {
+            submitButton.removeClass('disabled');
+            $("#error_push").html("");
+        }
+    });
     </script>
+
+
+    <!-- <script>
+
+                $('#remote_form').on('submit', function (e) {
+
+
+                    e.preventDefault();
+                    var datastring = $("#remote_form").serialize();
+
+//                     $.ajax({
+
+
+//      xhr: function(){
+//        var xhr = new window.XMLHttpRequest();
+//        //Upload progress
+//        xhr.upload.addEventListener("progress", function(evt){
+//            console.log("Upload");
+//        if (evt.lengthComputable) {
+//          var percentComplete = evt.loaded / evt.total;
+//          //Do something with upload progress
+//          console.log(percentComplete);
+//          }
+//        }, false);
+
+
+//      //Download progress
+//        xhr.addEventListener("progress", function(evt){
+//          if (evt.lengthComputable) {
+//            var percentComplete = evt.loaded / evt.total;
+//          //Do something with download progress
+//            console.log("Per  "+percentComplete);
+//          }
+//        }, false);
+
+//        return xhr;
+//      },
+
+
+//      type: 'POST',
+//      url: "accesories/remote_submit.php",
+//      data: datastring,
+//      success: function(data){
+//     //Do something success-ish
+//     console.log("Completed");
+//     }
+//  });
+
+
+ $.ajax({
+  xhr: function()
+  {
+    var xhr = new window.XMLHttpRequest();
+    //Upload progress
+    xhr.upload.addEventListener("progress", function(evt){
+      if (evt.lengthComputable) {
+        var percentComplete = evt.loaded / evt.total;
+        //Do something with upload progress
+        console.log(percentComplete);
+      }
+    }, false);
+    //Download progress
+    xhr.addEventListener("progress", function(evt){
+      if (evt.lengthComputable) {
+        var percentComplete = evt.loaded / evt.total;
+        //Do something with download progress
+        console.log(percentComplete);
+      }
+    }, false);
+    return xhr;
+  },
+  type: 'POST',
+     url: "accesories/remote_submit.php",
+     data: datastring,
+  success: function(data){
+    //Do something success-ish
+  }
+});
+                });
+
+
+
+            </script> -->
+
+
+
+
+
+
 
 
 </body>

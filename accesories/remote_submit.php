@@ -66,6 +66,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                 $videoextra_full = $row_content['videoextra'];         
 
                 $newsbody_full = $row_content['newsbody'];
+                $date_full = $row_content['created_date'];
 
 
 
@@ -150,7 +151,8 @@ function ftp_remote($folder , $DestName , $sourceName)
                 }
 
                
-            $myfile = fopen("../pushlog.txt", "w+") or die("Unable to open file!");   
+            $myfile = fopen("../pushlog.txt", "w") or die("Unable to open file!");  
+            fwrite($myfile, "---------------$date_full / $byline_full ---------------- "); 
                 
 
                 if(isset($_POST['gall_img']))
@@ -482,6 +484,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                 {
                     $push_videoextra = $videoextra_full_web;
                 }
+                fwrite($myfile, "------------------------------------------------------- "); 
                 fclose($myfile);
 
 
@@ -552,33 +555,72 @@ function ftp_remote($folder , $DestName , $sourceName)
 
                     if(isset($_POST['submit_push']))
                     {
-                        $data_array =  array(
-                            "byline" => "$byline_full" , 
-                            "videolong" => "$push_videoLong",
-                            "videolazy" => "$push_videoLazy",
-                            "previewgif" => "$push_preview ",
-                            "thumbnail" => "$push_thumbnail",
-                            "audio" => "$push_audio",
-                            "photos" => "$gall_img",
-                            "videoextra" => "$push_videoextra",
-                            "newsbody" => "$push_newsbody",
-                            "pid" => "$news_id",
-                            );
+                        // $data_array =  array(
+                        //     "byline" => "$byline_full" , 
+                        //     "videolong" => "$push_videoLong",
+                        //     "videolazy" => "$push_videoLazy",
+                        //     "previewgif" => "$push_preview ",
+                        //     "thumbnail" => "$push_thumbnail",
+                        //     "audio" => "$push_audio",
+                        //     "photos" => "$gall_img",
+                        //     "videoextra" => "$push_videoextra",
+                        //     "newsbody" => "$push_newsbody",
+                        //     "pid" => "$news_id",
+                        //     );
 
-                            $data = json_encode($data_array);
+
+                        // $data_array = '{
+                        //     "status": "publish",
+                        //     "title": "'.$byline_full'",
+                        //     "acf_fields":{ 
+                        //         "video_long_link":"'.$push_videoLong.'",
+                        //     "video_lazy_link": "'.$push_videoLazy.'",
+                        //         "video_extra_link": "https://www.youtube.com/watch?v=extra",
+                        //         "news_body_file": "'$push_newsbody.'",
+                        //         "audio": "https://sanjeebkc.com.np/nepalnewsbank/audio/20210307_070930_51876_audio.mp3"
+                        //     }
+                        // }';
+
+                        $data_array = '
+                        {
+                            "status": "publish",
+                            "title": "'.$byline_full'",
+                            "acf_fields": {
+                                "video_long_link": "'.$push_videoLong.'",
+                                "video_lazy_link": "'.$push_videoLazy.'",
+                                "video_extra_link": "'.$push_videoextra.'",
+                                "news_body_file": "'$push_newsbody.'",
+                                "audio": "'.$push_audio.'"
+                            },
+                             "featured_media": 868,
+                            "video_category": [
+                                33,
+                                34
+                            ],
+                             "video_tag": [
+                                118,
+                                119,
+                                120
+                            ]
+                    }';
+
+                       
+
+                            // $data = json_encode($data_array);
 
 
                         $curl = curl_init();
                         curl_setopt_array($curl, array(                    
-                        CURLOPT_URL => "https://sanjeebkc.com.np/test/test.php",
+                        CURLOPT_URL => "http://localhost/nepalnewsclient/wordpress/wp-json/wp/v2/haru_video/",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_TIMEOUT => 30,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => "POST",
-                        CURLOPT_POSTFIELDS => $data ,
+                        CURLOPT_POSTFIELDS => $data_array ,
                             CURLOPT_HTTPHEADER => array(
                                 "cache-control: no-cache",
-                                "content-type: application/json"
+                                "content-type: application/json",
+                                'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL25lcGFsbmV3c2NsaWVudFwvd29yZHByZXNzIiwiaWF0IjoxNjE1MTA3NzEzLCJuYmYiOjE2MTUxMDc3MTMsImV4cCI6MTYxNTcxMjUxMywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.CyOJwm-vphSeIhfptXdNJojyPctymwVgBcf9qGZP83E' 
                             ),
                         ));
                     
@@ -590,6 +632,19 @@ function ftp_remote($folder , $DestName , $sourceName)
                         $err = curl_error($curl);                    
                         //  $response = curl_exec($curl);
                         curl_close($curl);
+
+
+                        // {
+                        //     "status": "publish",
+                        //     "title": "postman check 4",
+                        //     "acf_fields":{ 
+                        //         "video_long_link":"https:/...",
+                        //     "video_lazy_link": "https://sanjeebkc.com.np/nepalnewsbank/videolazy/20210307_070930_51876_videoLazy.mp4",
+                        //         "video_extra_link": "https://www.youtube.com/watch?v=extra",
+                        //         "news_body_file": "https://sanjeebkc.com.np/nepalnewsbank/newsbody/20210307_070930_51876_body.docx",
+                        //         "audio": "https://sanjeebkc.com.np/nepalnewsbank/audio/20210307_070930_51876_audio.mp3"
+                        //     }
+                        // }
                     }
                     
                         

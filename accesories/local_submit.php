@@ -87,7 +87,7 @@ if(isset($_POST['submit']))
     && isset($_POST['newsdate']) &&   isset($_POST['lang_selec'])
 
     && isset($_POST['uploaded_by']) && isset($_POST['reporter']) && isset($_POST['camera_man'])  
-    && isset($_POST['district']) )
+    && isset($_POST['district'])  && isset($_POST['newsCategories']) ) 
     
     
     {
@@ -97,7 +97,7 @@ if(isset($_POST['submit']))
 
         && !empty($_POST['uploaded_by']) && !empty($_POST['reporter']) && !empty($_POST['camera_man'])  
         && !empty($_POST['district']) 
-        && !empty($_POST['newsdate']) &&   !empty($_POST['lang_selec'])
+        && !empty($_POST['newsdate']) &&   !empty($_POST['lang_selec']) && !empty($_POST['newsCategories']) 
         
         )
         {
@@ -124,8 +124,22 @@ if(isset($_POST['submit']))
             }
             $tags = implode(',', $tags_final_array);
 
-            $exclusive = $_POST['exclusive'];
-            $exclusive = mysqli_real_escape_string($connection, $exclusive);
+
+
+            $newsCategories = $_POST['newsCategories'];
+            $newsCategories_final_array = array();
+            
+            foreach($newsCategories as $nc)
+            {
+                if($nc != '')
+                {
+                    array_push( $newsCategories_final_array ,$nc );
+                }
+            }
+            $newsCategories = implode(',', $newsCategories_final_array);
+
+
+
 
             // new attributes 
 
@@ -455,7 +469,7 @@ if(isset($_POST['submit']))
 
                     $query_new_news = "insert into nas(
                                          newsid , created_date ,  local_published_date ,
-                                         byline ,                                         
+                                         byline ,  category_list ,                                       
                                          videolong,  videolazy , previewgif ,thumbnail ,
                                          audio ,  photos ,  newsbody ,  videoextra ,
                                          tag_list , uploaded_by , reporter ,
@@ -463,7 +477,7 @@ if(isset($_POST['submit']))
                                         ) 
                                         VALUES 
                                         ('$news_id', '$created_at' ,  '$newsdate' , 
-                                         '$byLine' ,
+                                         '$byLine' , '$newsCategories'
                                          '$video_long_path' ,'$videolazy_path' , '$preview_path' , '$thumbnail_path',
                                          $audio_path , '$gallery_csv' , '$body_path' , $videoExtra_path ,
                                          '$tags' ,'$uploaded_by' ,  '$reporter' , 

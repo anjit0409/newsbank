@@ -404,7 +404,7 @@ b {
                             <div class="form-group">
                                 <label class="col-lg-12 p-0">6. News Tags*</label>
                                 <!-- <input type="text" class="form-control" placeholder="Enter news byline" name="newsTag" required> -->
-                                <select multiple name="newsTag[]" id="animals">
+                                <select multiple name="newsTag[]" id="tags">
                                     <option value="Politics">Politics</option>
                                     <option value="Sports">Sports</option>
                                     <option value="International">International</option>
@@ -413,6 +413,23 @@ b {
                                     <option value="shark">Shark</option>
                                     <option value="exclusive">Exclusive</option>
                                     <option value="featurestory">Feature Story</option>
+                                    
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-12 p-0">6. News category*</label>
+                                <!-- <input type="text" class="form-control" placeholder="Enter news byline" name="newsTag" required> -->
+                                <select multiple name="newsCategories[]" id="categories">
+                                    <option value="business">Business</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="health">Health</option>
+                                    <option value="politics">Politics</option>
+                                    <option value="religion">Religiom</option>
+                                    <option value="science">Science</option>
+                                    <option value="travel">Travel</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="global">Global</option>
                                     
                                 </select>
                             </div>
@@ -922,12 +939,12 @@ b {
         // Use the plugin once the DOM has been loaded.
         $(function() {
             // Apply the plugin 
-            var animals = $('#animals').filterMultiSelect();
+            var tags = $('#tags').filterMultiSelect();
 
             $('#jsonbtn1').click((e) => {
                 var b = true;
                 var result = {
-                    ...JSON.parse(animals.getSelectedOptionsAsJson(b)),
+                    ...JSON.parse(tags.getSelectedOptionsAsJson(b)),
 
                 }
                 $('#jsonresult1').text(JSON.stringify(result, null, "  "));
@@ -935,7 +952,7 @@ b {
             $('#jsonbtn2').click((e) => {
                 var b = false;
                 var result = {
-                    ...JSON.parse(animals.getSelectedOptionsAsJson(b)),
+                    ...JSON.parse(tags.getSelectedOptionsAsJson(b)),
 
                 }
                 $('#jsonresult2').text(JSON.stringify(result, null, "  "));
@@ -1041,7 +1058,37 @@ b {
 
        
         </script>
+        <script>
+// Use the plugin once the DOM has been loaded.
+        $(function() {
+            // Apply the plugin 
+            var categories = $('#categories').filterMultiSelect();
 
+            $('#jsonbtn1').click((e) => {
+                var c = true;
+                var result = {
+                    ...JSON.parse(categories.getSelectedOptionsAsJson(c)),
+
+                }
+                $('#jsonresult1').text(JSON.stringify(result, null, "  "));
+            });
+            $('#jsonbtn2').click((e) => {
+                var b = false;
+                var result = {
+                    ...JSON.parse(categories.getSelectedOptionsAsJson(c)),
+
+                }
+                $('#jsonresult2').text(JSON.stringify(result, null, "  "));
+            });
+            $('#form').on('keypress keyup', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+        </script>
 
 </body>
 

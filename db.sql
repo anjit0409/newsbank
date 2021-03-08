@@ -10,6 +10,7 @@ create table nas(
     local_published_date date,
     
     byline  varchar(300),
+    category_list text,
 
     videolong  varchar(200),
 	videolazy  varchar(200),
@@ -47,8 +48,11 @@ DROP COLUMN subscription_type;
 
      /* news_type varchar(150),    Update to exclusive boolean*/  
 	/* isexclusive boolean , */
-    
+    ALTER TABLE nas
+ADD  category text;
 
+ALTER TABLE nas
+CHANGE COLUMN category category_list text;
         
 create table web(
 	
