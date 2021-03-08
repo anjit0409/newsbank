@@ -53,7 +53,10 @@ ADD  category text;
 
 ALTER TABLE nas
 CHANGE COLUMN category category_list text;
-        
+
+
+ drop table web ;
+       
 create table web(
 	
     id int primary key auto_increment ,

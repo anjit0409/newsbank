@@ -151,8 +151,8 @@ function ftp_remote($folder , $DestName , $sourceName)
                 }
 
                
-            $myfile = fopen("../pushlog.txt", "w") or die("Unable to open file!");  
-            fwrite($myfile, "---------------$date_full / $byline_full ---------------- "); 
+            $myfile = fopen("../pushlog.txt", "a") or die("Unable to open file!");  
+            fwrite($myfile, "\n---------------$date_full / $byline_full ---------------- \n"); 
                 
 
                 if(isset($_POST['gall_img']))
@@ -581,46 +581,57 @@ function ftp_remote($folder , $DestName , $sourceName)
                         //     }
                         // }';
 
-                        $data_array = '
-                        {
-                            "status": "publish",
-                            "title": "'.$byline_full'",
-                            "acf_fields": {
-                                "video_long_link": "'.$push_videoLong.'",
-                                "video_lazy_link": "'.$push_videoLazy.'",
-                                "video_extra_link": "'.$push_videoextra.'",
-                                "news_body_file": "'$push_newsbody.'",
-                                "audio": "'.$push_audio.'"
-                            },
-                             "featured_media": 868,
-                            "video_category": [
-                                33,
-                                34
-                            ],
-                             "video_tag": [
-                                118,
-                                119,
-                                120
-                            ]
-                    }';
+                    //     $data_array = '
+                    //     {
+                    //         "status": "publish",
+                    //         "title": "'.$byline_full'",
+                    //         "acf_fields": {
+                    //             "video_long_link": "'.$push_videoLong.'",
+                    //             "video_lazy_link": "'.$push_videoLazy.'",
+                    //             "video_extra_link": "'.$push_videoextra.'",
+                    //             "news_body_file": "'$push_newsbody.'",
+                    //             "audio": "'.$push_audio.'"
+                    //         },
+                    //          "featured_media": 868,
+                    //         "video_category": [
+                    //             33,
+                    //             34
+                    //         ],
+                    //          "video_tag": [
+                    //             118,
+                    //             119,
+                    //             120
+                    //         ]
+                    // }';
 
-                       
+                       $data_array =  array(
+                            "status" => "publish" , 
+                            "title" => "$byline_full",
+                            "acf_fields" => array('video_long_link'=>$push_videoLong,'video_lazy_link'=>$push_videoLazy,
+                                                    'video_extra_link' => $push_videoextra ,   'news_body_file' => $push_newsbody ,
+                                                    'audio' =>    $push_audio
+                       ),
+                            "featured_media" => 868,
+                            "video_category" => array(33,34),
+                            "video_tag" => array(118,119,120),
+                        
+                            );
 
-                            // $data = json_encode($data_array);
+                            $data = json_encode($data_array);
 
 
                         $curl = curl_init();
                         curl_setopt_array($curl, array(                    
-                        CURLOPT_URL => "http://localhost/nepalnewsclient/wordpress/wp-json/wp/v2/haru_video/",
+                        CURLOPT_URL => "http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_video/",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_TIMEOUT => 30,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => "POST",
-                        CURLOPT_POSTFIELDS => $data_array ,
+                        CURLOPT_POSTFIELDS => $data ,
                             CURLOPT_HTTPHEADER => array(
                                 "cache-control: no-cache",
                                 "content-type: application/json",
-                                'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL25lcGFsbmV3c2NsaWVudFwvd29yZHByZXNzIiwiaWF0IjoxNjE1MTA3NzEzLCJuYmYiOjE2MTUxMDc3MTMsImV4cCI6MTYxNTcxMjUxMywiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.CyOJwm-vphSeIhfptXdNJojyPctymwVgBcf9qGZP83E' 
+                                'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTIxOTU3NiwibmJmIjoxNjE1MjE5NTc2LCJleHAiOjE2MTU4MjQzNzYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.GDpI7VZvC7aSRpSI62lDWX4qIX0AZXpwxK5_n3Zkx1U' 
                             ),
                         ));
                     

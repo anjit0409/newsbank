@@ -1,9 +1,0 @@
-20210223_99224_gallery_0.jpg Gallery Photo Pushed
-20210223_99224_gallery_1.jpg Gallery Photo Pushed
-20210223_99224_body.docx News  Body Pushed
-20210223_99224_videolong.mp4 Video Long Pushed
-20210223_99224_videoLazy.mp4 Video Lazy Pushed
-20210223_99224_preview.jpg Preview Pushed
-20210223_99224_thumbnail.jpg Thumbnail Pushed
-20210223_99224_audio.mp3 Audio Pushed
-20210223_99224_videoextra.mp4 Video Extra  Pushed
