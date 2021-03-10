@@ -43,6 +43,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/remotecopycreator.css">
+    <link rel="stylesheet" href="assets/progress/style.css">
 
     <title>NEPAL NEWS BANK DASHBOARD</title>
 
@@ -51,59 +52,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
         cursor: no-drop;
     }
     </style>
-    <style>
-    /* body{width:610px;} */
-    #uploadForm {
-        border-top: #F0F0F0 2px solid;
-        background: #FAF8F8;
-        padding: 10px;
-    }
 
-    #uploadForm label {
-        margin: 2px;
-        font-size: 1em;
-        font-weight: bold;
-    }
-
-    .demoInputBox {
-        padding: 5px;
-        border: #F0F0F0 1px solid;
-        border-radius: 4px;
-        background-color: #FFF;
-    }
-
-    #progress-bar {
-        background-color: #12CC1A;
-        height: 20px;
-        color: #FFFFFF;
-        width: 0%;
-        -webkit-transition: width .3s;
-        -moz-transition: width .3s;
-        transition: width .3s;
-    }
-
-    .btnSubmit {
-        background-color: #09f;
-        border: 0;
-        padding: 10px 40px;
-        color: #FFF;
-        border: #F0F0F0 1px solid;
-        border-radius: 4px;
-    }
-
-    #progress-div {
-        border: #0FA015 1px solid;
-        padding: 5px 0px;
-        margin: 30px 0px;
-        border-radius: 4px;
-        text-align: center;
-    }
-
-    #targetLayer {
-        width: 100%;
-        text-align: center;
-    }
-    </style>
 </head>
 
 <body>
@@ -142,10 +91,10 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                 if($num_rows_byline != 0)
                     {
             ?>
-            <form method="POST"   action="accesories/remote_submit.php" >
-            <!--   id="remote_form"-->
+            <form method="POST" action="accesories/remote_submit.php">
+                <!--   id="remote_form"-->
 
-               
+
 
                 <div id="loader-icon" style="display:none;"><img src="LoaderIcon.gif" /></div>
 
@@ -290,6 +239,8 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                         $pushed_by_web = $row_content_web['pushed_by'];
 
+                                        $wp_id = $row_content_web['wp_post_id'];
+
 
 
 
@@ -321,10 +272,28 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                             $notice  = 'Succesfully pushed the news to remote database !';
                                             $bg_color = 'rgb(102, 255, 51,0.5)';
                                             $color = '#009933';
-                                            $color_down = '#4BB543';
-                                        
+                                            $color_down = '#4BB543';                                        
 
-                                    }
+                                        }
+
+                                        if($_SESSION['notice_remote'] == 'Error_push_post')
+                                        {
+                                            $notice  = 'Error Creating post. Please post again';
+                                            $bg_color = 'red';
+                                            $color = '#000';
+                                            $color_down = '#000';
+                                            
+
+                                        }
+
+                                        if($_SESSION['notice_remote'] == 'Success_push_post')
+                                        {
+                                            $notice  = 'Succesfully Created Post !';
+                                            $bg_color = 'rgb(102, 255, 51,0.5)';
+                                            $color = '#009933';
+                                            $color_down = '#4BB543';                                        
+
+                                        }
 
 
                                 ?>
@@ -972,14 +941,24 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                             <p class="h4 text-info mt-3 "><b>Step 7.</b> </p>
                             <?php
-                                if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e)
-                                {
-                                    $dis_pushhh = '';
-                                }
-                                else
+                               
+
+                                if($wp_id != null)
                                 {
                                     $dis_pushhh = 'disabled';
                                     $curs_style_create= 'not-allowed';
+                                }
+                                else
+                                {
+                                    if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e)
+                                    {
+                                        $dis_pushhh = '';
+                                    }
+                                    else
+                                    {
+                                        $dis_pushhh = 'disabled';
+                                        $curs_style_create= 'not-allowed';
+                                    }
                                 }
                             ?>
                             <button class="btn btn-info" style="cursor:<?php echo  $curs_style_create ; ?>; "
@@ -1039,11 +1018,11 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
             </form>
             <div class="form-group" id="process" style="display:none;">
-        <div class="progress">
-       <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="">
-       </div>
-      </div
-            <?php
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" style="">
+                    </div>
+                </div <?php
                     }
                     else
                     {
@@ -1081,8 +1060,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                         }
                         
                     
-                ?>
-            <div class="card-body">
+                ?> <div class="card-body">
                 <div class="card-body text-center " style="height:400px">
                     <h3 style="padding-top:100px">
                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 pb-2" width="45" height="45"
@@ -1136,7 +1114,15 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="assets/progress/jquerymin.js"></script>
+    <script src="assets/progress/ajax.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
     </script>
@@ -1189,92 +1175,6 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
         }
     });
     </script>
-
-
-    <!-- <script>
-
-                $('#remote_form').on('submit', function (e) {
-
-
-                    e.preventDefault();
-                    var datastring = $("#remote_form").serialize();
-
-//                     $.ajax({
-
-
-//      xhr: function(){
-//        var xhr = new window.XMLHttpRequest();
-//        //Upload progress
-//        xhr.upload.addEventListener("progress", function(evt){
-//            console.log("Upload");
-//        if (evt.lengthComputable) {
-//          var percentComplete = evt.loaded / evt.total;
-//          //Do something with upload progress
-//          console.log(percentComplete);
-//          }
-//        }, false);
-
-
-//      //Download progress
-//        xhr.addEventListener("progress", function(evt){
-//          if (evt.lengthComputable) {
-//            var percentComplete = evt.loaded / evt.total;
-//          //Do something with download progress
-//            console.log("Per  "+percentComplete);
-//          }
-//        }, false);
-
-//        return xhr;
-//      },
-
-
-//      type: 'POST',
-//      url: "accesories/remote_submit.php",
-//      data: datastring,
-//      success: function(data){
-//     //Do something success-ish
-//     console.log("Completed");
-//     }
-//  });
-
-
- $.ajax({
-  xhr: function()
-  {
-    var xhr = new window.XMLHttpRequest();
-    //Upload progress
-    xhr.upload.addEventListener("progress", function(evt){
-      if (evt.lengthComputable) {
-        var percentComplete = evt.loaded / evt.total;
-        //Do something with upload progress
-        console.log(percentComplete);
-      }
-    }, false);
-    //Download progress
-    xhr.addEventListener("progress", function(evt){
-      if (evt.lengthComputable) {
-        var percentComplete = evt.loaded / evt.total;
-        //Do something with download progress
-        console.log(percentComplete);
-      }
-    }, false);
-    return xhr;
-  },
-  type: 'POST',
-     url: "accesories/remote_submit.php",
-     data: datastring,
-  success: function(data){
-    //Do something success-ish
-  }
-});
-                });
-
-
-
-            </script> -->
-
-
-
 
 
 

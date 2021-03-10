@@ -402,34 +402,35 @@ b {
 
                             <!-- The tags for news. example: sports,football,messi,goal. Should be in CSV(comma separated format) -->
                             <div class="form-group">
-                                <label class="col-lg-12 p-0">6. News Tags*</label>
+                                <label class="col-lg-12 p-0">6. News category*</label>
                                 <!-- <input type="text" class="form-control" placeholder="Enter news byline" name="newsTag" required> -->
-                                <select multiple name="newsTag[]" id="tags">
-                                    <option value="Politics">Politics</option>
-                                    <option value="Sports">Sports</option>
-                                    <option value="International">International</option>
-                                    <option value="Glamour">Glamour</option>
-                                    <option value="frog">Frog</option>
-                                    <option value="shark">Shark</option>
-                                    <option value="exclusive">Exclusive</option>
-                                    <option value="featurestory">Feature Story</option>
+                                <select multiple name="newsCategories[]" id="categories">
+                                    <option value="124">Business</option>
+                                    <option value="125">Entertainment</option>
+                                    <option value="126">Health</option>
+                                    <option value="127">Politics</option>
+                                    <option value="128">Religiom</option>
+                                    <option value="129">Science</option>
+                                    <option value="131">Technology</option>
+                                    <option value="132">Global</option>
+                                    <option value="139">Exclusive</option>
+                                    <option value="140">Feature Story</option>
                                     
                                 </select>
                             </div>
 
+                            <!-- The tags for news. example: sports,football,messi,goal. Should be in CSV(comma separated format) -->
                             <div class="form-group">
-                                <label class="col-lg-12 p-0">6. News category*</label>
+                                <label class="col-lg-12 p-0">7. News Tags*</label>
                                 <!-- <input type="text" class="form-control" placeholder="Enter news byline" name="newsTag" required> -->
-                                <select multiple name="newsCategories[]" id="categories">
-                                    <option value="business">Business</option>
-                                    <option value="entertainment">Entertainment</option>
-                                    <option value="health">Health</option>
-                                    <option value="politics">Politics</option>
-                                    <option value="religion">Religiom</option>
-                                    <option value="science">Science</option>
-                                    <option value="travel">Travel</option>
-                                    <option value="technology">Technology</option>
-                                    <option value="global">Global</option>
+                                <select multiple name="newsTag[]" id="tags">
+                                    <option value="141">Business</option>
+                                    <option value="142">Entertainment</option>
+                                    <option value="134">Sports</option>
+                                    <option value="135">International</option>
+                                    <option value="136">Glamour</option>
+                                  
+                                   
                                     
                                 </select>
                             </div>

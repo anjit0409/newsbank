@@ -75,6 +75,7 @@ create table web(
    
 	pushed_by varchar(200),
     pushed_date  datetime,
+    wp_post_id bigint,
     
      FOREIGN KEY(newsid) REFERENCES nas (newsid)
 
@@ -83,7 +84,8 @@ create table web(
 select * from web ;
 
 drop table web ;
-
+ALTER TABLE web
+ADD wp_post_id bigint;
 
 
 /* 

@@ -477,7 +477,7 @@ if(isset($_POST['submit']))
                                         ) 
                                         VALUES 
                                         ('$news_id', '$created_at' ,  '$newsdate' , 
-                                         '$byLine' , '$newsCategories'
+                                         '$byLine' , '$newsCategories',
                                          '$video_long_path' ,'$videolazy_path' , '$preview_path' , '$thumbnail_path',
                                          $audio_path , '$gallery_csv' , '$body_path' , $videoExtra_path ,
                                          '$tags' ,'$uploaded_by' ,  '$reporter' , 

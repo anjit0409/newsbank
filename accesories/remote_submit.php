@@ -68,7 +68,8 @@ function ftp_remote($folder , $DestName , $sourceName)
                 $newsbody_full = $row_content['newsbody'];
                 $date_full = $row_content['created_date'];
 
-
+                $category_full = $row_content['category_list'];
+                $tags_full = $row_content['tag_list'];
 
                 $sql_content_web = "select * from web where newsid = '$news_id' ";
                 $run_sql_content_web= mysqli_query($connection, $sql_content_web);
@@ -517,7 +518,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                     $query_new_news_update = "update  web set 
                        videolong = $push_videoLong , videolazy = $push_videoLazy , previewgif = $push_preview ,thumbnail = $push_thumbnail ,
                         audio = $push_audio  , photos = '$gall_img' , videoextra = $push_videoextra, newsbody = $push_newsbody,  
-                         pushed_by = '$pushed_by' ,   pushed_date = '$pushed_at' ;";
+                         pushed_by = '$pushed_by' ,   pushed_date = '$pushed_at' where newsid = '$news_id'  ;";
                         // ) 
                         // VALUES 
                         // ('$news_id',  $push_videoLong ,$push_videoLazy , $push_preview , $push_thumbnail,
@@ -531,15 +532,16 @@ function ftp_remote($folder , $DestName , $sourceName)
                 }
                 else
                 {
+                    $wp_post = "NULL";
                     $query_new_news_push = "insert into web(
                         newsid ,  videolong , videolazy , previewgif ,thumbnail ,
                         audio   , photos , videoextra, newsbody ,  
-                         pushed_by ,   pushed_date
+                         pushed_by ,   pushed_date , wp_post_id
                         ) 
                         VALUES 
                         ('$news_id',  $push_videoLong ,$push_videoLazy , $push_preview , $push_thumbnail,
                              $push_audio , '$gall_img', $push_videoextra , $push_newsbody , 
-                            '$pushed_by' ,'$pushed_at'
+                            '$pushed_by' ,'$pushed_at' , $wp_post
                             
                             )";    
 
@@ -604,6 +606,9 @@ function ftp_remote($folder , $DestName , $sourceName)
                     //         ]
                     // }';
 
+                    $category_full_arr = explode("," , $category_full);
+                    $tags_full_arr = explode("," , $tags_full);
+
                        $data_array =  array(
                             "status" => "publish" , 
                             "title" => "$byline_full",
@@ -612,8 +617,8 @@ function ftp_remote($folder , $DestName , $sourceName)
                                                     'audio' =>    $push_audio
                        ),
                             "featured_media" => 868,
-                            "video_category" => array(33,34),
-                            "video_tag" => array(118,119,120),
+                            "video_category" => $category_full_arr,
+                            "video_tag" => $tags_full_arr,
                         
                             );
 
@@ -636,13 +641,27 @@ function ftp_remote($folder , $DestName , $sourceName)
                         ));
                     
                         $response = curl_exec($curl);
-                        echo $response ;
                         $response = json_decode($response);
                         $response = json_decode(json_encode($response) , true);
                         $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
                         $err = curl_error($curl);                    
-                        //  $response = curl_exec($curl);
                         curl_close($curl);
+                        // echo "POST NEW ID: <br> ".$response['id']." <br><br><br><br><br><br>";
+                        // echo "Response Code: $respCode";
+
+                        $post_new_id = $response['id'];
+
+                        if($respCode == 201)
+                        {
+                            $query_wp_id_upd = "update  web set  wp_post_id = '$post_new_id'  where newsid = '$news_id'  ;";                  
+                            $run_query_wp_id_upd = mysqli_query($connection , $query_wp_id_upd);
+                            $_SESSION['notice_remote'] = "Success_push_post";
+                        }
+                        else
+                        {
+                            $_SESSION['notice_remote'] = "Error_push_post";
+                        }
+                        
 
 
                         // {
