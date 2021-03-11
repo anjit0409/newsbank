@@ -557,57 +557,34 @@ function ftp_remote($folder , $DestName , $sourceName)
 
                     if(isset($_POST['submit_push']))
                     {
-                        // $data_array =  array(
-                        //     "byline" => "$byline_full" , 
-                        //     "videolong" => "$push_videoLong",
-                        //     "videolazy" => "$push_videoLazy",
-                        //     "previewgif" => "$push_preview ",
-                        //     "thumbnail" => "$push_thumbnail",
-                        //     "audio" => "$push_audio",
-                        //     "photos" => "$gall_img",
-                        //     "videoextra" => "$push_videoextra",
-                        //     "newsbody" => "$push_newsbody",
-                        //     "pid" => "$news_id",
-                        //     );
-
-
-                        // $data_array = '{
-                        //     "status": "publish",
-                        //     "title": "'.$byline_full'",
-                        //     "acf_fields":{ 
-                        //         "video_long_link":"'.$push_videoLong.'",
-                        //     "video_lazy_link": "'.$push_videoLazy.'",
-                        //         "video_extra_link": "https://www.youtube.com/watch?v=extra",
-                        //         "news_body_file": "'$push_newsbody.'",
-                        //         "audio": "https://sanjeebkc.com.np/nepalnewsbank/audio/20210307_070930_51876_audio.mp3"
-                        //     }
-                        // }';
-
-                    //     $data_array = '
-                    //     {
-                    //         "status": "publish",
-                    //         "title": "'.$byline_full'",
-                    //         "acf_fields": {
-                    //             "video_long_link": "'.$push_videoLong.'",
-                    //             "video_lazy_link": "'.$push_videoLazy.'",
-                    //             "video_extra_link": "'.$push_videoextra.'",
-                    //             "news_body_file": "'$push_newsbody.'",
-                    //             "audio": "'.$push_audio.'"
-                    //         },
-                    //          "featured_media": 868,
-                    //         "video_category": [
-                    //             33,
-                    //             34
-                    //         ],
-                    //          "video_tag": [
-                    //             118,
-                    //             119,
-                    //             120
-                    //         ]
-                    // }';
+                       
 
                     $category_full_arr = explode("," , $category_full);
                     $tags_full_arr = explode("," , $tags_full);
+
+
+
+                        $prieview_path = $preview_full ;
+                        $file = file_get_contents( '../'.$prieview_path );
+                        $url = 'http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
+                        $ch = curl_init();
+                        curl_setopt( $ch, CURLOPT_URL, $url );
+                        curl_setopt( $ch, CURLOPT_POST, 1 );
+                        curl_setopt( $ch, CURLOPT_POSTFIELDS, $file );
+                        curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+                            'Content-Disposition: form-data; filename="sanjeeb1.png"',
+                            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTIxOTU3NiwibmJmIjoxNjE1MjE5NTc2LCJleHAiOjE2MTU4MjQzNzYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.GDpI7VZvC7aSRpSI62lDWX4qIX0AZXpwxK5_n3Zkx1U' 
+                            ] );
+                        
+                        $result = curl_exec( $ch );
+                        $result = json_decode($result);
+                        $result = json_decode(json_encode($result) , true);                        
+                        curl_close( $ch );
+                        
+                        $featured_media_id  = $result['id'];
+
+                        
+                     
 
                        $data_array =  array(
                             "status" => "publish" , 
@@ -616,7 +593,7 @@ function ftp_remote($folder , $DestName , $sourceName)
                                                     'video_extra_link' => $push_videoextra ,   'news_body_file' => $push_newsbody ,
                                                     'audio' =>    $push_audio
                        ),
-                            "featured_media" => 868,
+                            "featured_media" => $featured_media_id,
                             "video_category" => $category_full_arr,
                             "video_tag" => $tags_full_arr,
                         
