@@ -583,6 +583,12 @@ function ftp_remote($folder , $DestName , $sourceName)
                         
                         $featured_media_id  = $result['id'];
 
+                        $content_json = "<div class='ead-preview'><div class='ead-document' style='position: relative;padding-top: 90%;'>
+                                                <iframe src='//view.officeapps.live.com/op/embed.aspx?src=".$push_newsbody."' 
+                                                    title='".$byline_full."' class='ead-iframe' style='width: 100%;height: 100%;border: none;position: absolute;left: 0;top: 0;'>
+                                                    </iframe></div></div>";
+    
+
                         
                      
 
@@ -596,6 +602,12 @@ function ftp_remote($folder , $DestName , $sourceName)
                             "featured_media" => $featured_media_id,
                             "video_category" => $category_full_arr,
                             "video_tag" => $tags_full_arr,
+
+                            "cmb2" => array('haru_video_metabox' => array('haru_video_server' => 'selfhost',
+                                                                            'haru_video_url_type'=> 'insert',
+                                                                            'haru_video_url' => array('mp4' => $push_videoLazy , 'webm' => '')
+                    )),
+                            "content" => $content_json
                         
                             );
 
