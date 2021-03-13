@@ -3,37 +3,7 @@
 include "connection.php";
 session_start();
 
-function ftp_delete($file)
-{
-    // connect and login to FTP server
-    $ftp = ftp_connect("ftp.sanjeebkc.com.np");
-    ftp_login($ftp, "nepalnewsbank@sanjeebkc.com.np", "nepalnewsbank");
-    ftp_pasv($ftp, true);
 
-    $file = explode("/" , $file);
-    $file = end($file);
-
-    // $file = "php/test.txt";
-
-    // try to delete file
-    
-        if (ftp_delete($ftp, $file))
-        {
-             return 1 ;
-        }
-        else
-        {
-            return 0;
-        }
-    
-    
-
-    // close connection
-    ftp_close($ftp_conn);
-
-    return 0 ;
-
-}
 
 
 if(isset($_POST['del_remote']) && isset($_POST['news_id']) && isset($_POST['wp_id']))
@@ -89,51 +59,9 @@ if(isset($_POST['del_remote']) && isset($_POST['news_id']) && isset($_POST['wp_i
 
             if($respCode == 200 || $respCode == 202  || $respCode == 204 )
             {
-                if($videolong_full != NULL)
-                {
-                    ftp_delete($videolong_full);                   
-
-                    
-                }
-
-                if($preview_full != NULL)
-                {
-                    ftp_delete($preview_full);
-                }
-
-                if($thumbnail_full != NULL)
-                {
-                    ftp_delete($thumbnail_full);
-                }
                 
 
-                if($videolazy_full != NULL)
-                {
-                    ftp_delete($videolazy_full);
-                }
-
-                if($newsbody_full != NULL)
-                {
-                    ftp_delete($newsbody_full);
-                }
-
-
-                if($audio != NULL)
-                {
-                    ftp_delete($audio);
-                }
-
-                if($videoextra != NULL)
-                {
-                    ftp_delete($videoextra);
-                }
-
-                foreach($photos_array as $ph)
-                {
-                    ftp_delete($ph);
-                }
-
-                $sql_del_web = "delete from web where newsid = '$news_id' ";
+                $sql_del_web = "update web set wp_post_id = null where newsid = '$news_id' ";
                 $run_sql_del_web= mysqli_query($connection, $sql_del_web);
 
                 if($run_sql_del_web)
@@ -149,10 +77,6 @@ if(isset($_POST['del_remote']) && isset($_POST['news_id']) && isset($_POST['wp_i
 
 
 
-
-            // Delete from wordpress -- done
-            // remove files from ftp
-            // delete rows from Mysql
 
 
         }

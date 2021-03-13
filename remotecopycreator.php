@@ -307,7 +307,26 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                                     if($_SESSION['notice_remote'] == 'success_remote_delete')
                                                     {
-                                                        $notice  = 'Succesfully Dleted Post !';
+                                                        $notice  = 'Succesfully Deleted Post !';
+                                                        $bg_color = 'rgb(102, 255, 51,0.5)';
+                                                        $color = '#009933';
+                                                        $color_down = '#4BB543';                                        
+
+                                                    }
+
+                                                    if($_SESSION['notice_remote'] == 'Error_remote_delete')
+                                                    {
+                                                        $notice  = 'Error deleting remote Files. Please delete again';
+                                                        $bg_color = 'red';
+                                                        $color = '#000';
+                                                        $color_down = '#000';
+                                                        
+
+                                                    }
+
+                                                    if($_SESSION['notice_remote'] == 'success_remotefile_delete')
+                                                    {
+                                                        $notice  = 'Succesfully Deleted Remote Files !';
                                                         $bg_color = 'rgb(102, 255, 51,0.5)';
                                                         $color = '#009933';
                                                         $color_down = '#4BB543';                                        
@@ -924,18 +943,24 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         }
 
 
-                                            if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e  && $sta_h && $sta_g && $sta_f)
-                                            {
-                                                $dis_pushhh = 'disabled';
-                                                $curs_style= 'not-allowed';
+                                        if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e  && $sta_h && $sta_g && $sta_f)
+                                        {
+                                            $dis_pushhh = 'disabled';
+                                            $curs_style= 'not-allowed';
 
-                                            }
-                                            else
-                                            {
-                                                $dis_pushhh = '';
-                                                $curs_style= '';
+                                            $dis_del_remote_file = '';
+                                            $curs_style_del_remote_files= '';
 
-                                            }
+                                        }
+                                        else
+                                        {
+                                            $dis_pushhh = '';
+                                            $curs_style= '';
+
+                                            $dis_del_remote_file = 'disabled';
+                                            $curs_style_del_remote_files= 'not-allowed';
+
+                                        }
 
                                             // if($sta_g)
                                             // {
@@ -953,12 +978,20 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                         ?>
                                         <button type="submit" class="btn btn-info sub_push"
-                                            style="cursor: <?php echo $curs_style; echo  $curs_stylee ;?>"
+                                            style="cursor: <?php echo $curs_style; ?>"
                                             <?php echo $dis_pushhh ; ?> <?php //echo $dis_pushhhh ; ?> value="submit" name="submit">
                                             Push data to remote
                                         </button>
                                         <span id="error_push"></span>
                                         <span id="error_push_miss"></span>
+
+                                        <br><br>
+                                        <button type="submit" class="btn btn-danger"
+                                        style="cursor: <?php echo $curs_style_del_remote_files; ;?>"
+                                            <?php echo $dis_del_remote_file ; ?>
+                                           value="submit" name="del_remote_files">
+                                           Delete Remote Files
+                                        </button>
 
                                         <p class="h4 text-info mt-3 "><b>Step 7.</b> </p>
                                         <?php
@@ -1009,7 +1042,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                             <form method="POST" action='accesories/remote_delete.php'>
                                 <input type="hidden" name="wp_id" value="<?php echo $wp_id ; ?>" >
                                 <input type="hidden" name="news_id" value="<?php echo $news_id ; ?>" >
-                                <input type="submit" value="Delete from Remote" class="btn btn-danger" style="margin-left:290px;" name="del_remote">
+                                <input type="submit" value="Delete Remote Post" class="btn btn-danger" style="margin-left:290px;" name="del_remote">
                             </form>
                         
                         <?php
