@@ -32,7 +32,7 @@ function ftp_remote($folder , $DestName , $sourceName)
 }
 
 
-function ftp_delete($file)
+function ftp_delete_rem($file)
 {
     // connect and login to FTP server
     $ftp = ftp_connect("ftp.sanjeebkc.com.np");
@@ -627,14 +627,28 @@ function ftp_delete($file)
     
 
                         $push_videoLazy_json = str_replace("'","",$push_videoLazy);
+
+                        $push_videoLong_json = str_replace("'","",$push_videoLong);
+                        $push_videoLazy_json = str_replace("'","",$push_videoLazy);
+                        $push_videoextra_json = str_replace("'","",$push_videoextra);
+                        $push_newsbody_json = str_replace("'","",$push_newsbody);
+
+                        $push_audio_json = str_replace("'","",$push_audio);
+                        $gallery_full_web_json = str_replace("'","",$gall_img);
+                        $preview_full_web_json = str_replace("'","",$push_preview);
+                        $thumbnail_full_web_json = str_replace("'","",$push_thumbnail);
+                        
                      
 
                        $data_array =  array(
                             "status" => "publish" , 
                             "title" => "$byline_full",
-                            "acf_fields" => array('video_long_link'=>$push_videoLong,'video_lazy_link'=>$push_videoLazy,
-                                                    'video_extra_link' => $push_videoextra ,   'news_body_file' => $push_newsbody ,
-                                                    'audio' =>    $push_audio
+                            "acf_fields" => array('video_long_link'=>$push_videoLong_json,'video_lazy_link'=>$push_videoLazy_json,
+                                                    'video_extra_link' => $push_videoextra_json ,   'news_body_file' => $push_newsbody_json ,
+                                                    'audio' =>    $push_audio_json,
+                                                    "gallery" => $gallery_full_web_json,
+                                                    "video_preview" => $preview_full_web_json,
+                                                    "video_thumbnail" => $thumbnail_full_web_json
                        ),
                             "featured_media" => $featured_media_id,
                             "video_category" => $category_full_arr,
@@ -645,9 +659,7 @@ function ftp_delete($file)
                                                                             'haru_video_url' => array('mp4' => $push_videoLazy_json , 'webm' => '')
                     )),
                             "content" => $content_json,
-                            "gallery" => $gallery_full_web,
-                            "video_preview" => $preview_full_web,
-                            "video_thumbnail" => $thumbnail_full_web
+                         
                         
                             );
 
@@ -773,46 +785,46 @@ function ftp_delete($file)
 
                     if($videolong_full != NULL)
                     {
-                        ftp_delete($videolong_full);              
+                        ftp_delete_rem($videolong_full);              
 
                         
                     }
 
                     if($preview_full != NULL)
                     {
-                        ftp_delete($preview_full);
+                        ftp_delete_rem($preview_full);
                     }
 
                     if($thumbnail_full != NULL)
                     {
-                        ftp_delete($thumbnail_full);
+                        ftp_delete_rem($thumbnail_full);
                     }
                     
 
                     if($videolazy_full != NULL)
                     {
-                        ftp_delete($videolazy_full);
+                        ftp_delete_rem($videolazy_full);
                     }
 
                     if($newsbody_full != NULL)
                     {
-                        ftp_delete($newsbody_full);
+                        ftp_delete_rem($newsbody_full);
                     }
 
 
                     if($audio != NULL)
                     {
-                        ftp_delete($audio);
+                        ftp_delete_rem($audio);
                     }
 
                     if($videoextra != NULL)
                     {
-                        ftp_delete($videoextra);
+                        ftp_delete_rem($videoextra);
                     }
 
                     foreach($photos_array as $ph)
                     {
-                        ftp_delete($ph);
+                        ftp_delete_rem($ph);
                     }
 
                     $sql_del_web = "update web set videolong = null , videolazy = null , previewgif = null ,
