@@ -644,7 +644,8 @@ function ftp_delete($file)
                                                                             'haru_video_url_type'=> 'insert',
                                                                             'haru_video_url' => array('mp4' => $push_videoLazy_json , 'webm' => '')
                     )),
-                            "content" => $content_json
+                            "content" => $content_json,
+                            "gallery" => $gallery_full_web
                         
                             );
 
