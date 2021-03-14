@@ -645,7 +645,9 @@ function ftp_delete($file)
                                                                             'haru_video_url' => array('mp4' => $push_videoLazy_json , 'webm' => '')
                     )),
                             "content" => $content_json,
-                            "gallery" => $gallery_full_web
+                            "gallery" => $gallery_full_web,
+                            "video_preview" => $preview_full_web,
+                            "video_thumbnail" => $thumbnail_full_web
                         
                             );
 
