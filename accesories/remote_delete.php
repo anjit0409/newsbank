@@ -13,6 +13,8 @@ if(isset($_POST['del_remote']) && isset($_POST['news_id']) && isset($_POST['wp_i
         $news_id = $_POST['news_id'];
         $news_id = mysqli_real_escape_string($connection, $news_id);
 
+        $wp_id = $_POST['wp_id'];
+
 
         $sql_content = "select * from web where newsid = '$news_id' ";
         $run_sql_content= mysqli_query($connection, $sql_content);
@@ -34,12 +36,15 @@ if(isset($_POST['del_remote']) && isset($_POST['news_id']) && isset($_POST['wp_i
             $audio = $row_content['audio'];
             $videoextra = $row_content['videoextra'];
 
-            $wp_id = $row_content['wp_post_id'];
+            // $wp_id = $row_content['wp_post_id'];
 
-
+            $data = array();
+            $data = json_encode($data);
+//".$wp_id
+            $url = "http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_video/$wp_id" ;
             $curl = curl_init();
             curl_setopt_array($curl, array(                    
-            CURLOPT_URL => "http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_video/".$wp_id,
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
@@ -56,6 +61,29 @@ if(isset($_POST['del_remote']) && isset($_POST['news_id']) && isset($_POST['wp_i
             $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             $err = curl_error($curl);                    
             curl_close($curl);
+
+            // $url = 'http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_video/'.$wp_id;
+            //             $ch = curl_init();
+            //             curl_setopt( $ch, CURLOPT_URL, $url );
+            //             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );                       
+            //             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                        
+            //             curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+            //                 'Content-Disposition: form-data; filename="sanjeeb1.png"',
+            //                 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTIxOTU3NiwibmJmIjoxNjE1MjE5NTc2LCJleHAiOjE2MTU4MjQzNzYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.GDpI7VZvC7aSRpSI62lDWX4qIX0AZXpwxK5_n3Zkx1U' 
+            //                 ] );
+                        
+            //             $result = curl_exec( $ch );
+            //             $respCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                                          
+            //             curl_close( $ch );
+
+
+
+
+            // echo "Response code: ".$url;
+            echo "Response code: ".$respCode;
+            // echo "<br> Responce:  $response";
 
             if($respCode == 200 || $respCode == 202  || $respCode == 204 )
             {
@@ -79,13 +107,13 @@ if(isset($_POST['del_remote']) && isset($_POST['news_id']) && isset($_POST['wp_i
 
 
 
+
         }
 
 
         
     }
 }
-
 
 header("Location: ". $_SERVER['HTTP_REFERER']);
 exit();

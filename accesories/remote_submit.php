@@ -6,7 +6,7 @@
 
     // $remote_file_server_path = 'https://offixservices.com/localhostftp';
 
-    $remote_file_server_path = 'https://sanjeebkc.com.np/nepalnewsbank';
+    $remote_file_server_path = 'https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank';
 
 function ftp_remote($folder , $DestName , $sourceName)
 {
@@ -599,9 +599,11 @@ function ftp_delete($file)
 
                         $prieview_path = $preview_full ;
                         $file = file_get_contents( '../'.$prieview_path );
+                        
                         $url = 'http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
                         $ch = curl_init();
                         curl_setopt( $ch, CURLOPT_URL, $url );
+                        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                         curl_setopt( $ch, CURLOPT_POST, 1 );
                         curl_setopt( $ch, CURLOPT_POSTFIELDS, $file );
                         curl_setopt( $ch, CURLOPT_HTTPHEADER, [
