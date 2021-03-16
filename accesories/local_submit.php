@@ -82,7 +82,7 @@ $news_lang_array = array('nepali' , 'english' , 'nepali_uni');
 if(isset($_POST['submit']))
 {
     if( isset($_POST['byLine']) && isset($_POST['newsTag']) && isset($_FILES['descFile'])  && isset($_FILES['videoLongFile'])
-    && isset($_FILES['previewImg']) && isset($_FILES['galleryImage']) && isset($_FILES['thumbImg'])
+     && isset($_FILES['galleryImage']) && isset($_FILES['thumbImg'])
     && isset($_FILES['videoLazy'])  
     && isset($_POST['newsdate']) &&   isset($_POST['lang_selec'])
 
@@ -92,7 +92,7 @@ if(isset($_POST['submit']))
     
     {
         if(!empty($_POST['byLine']) && !empty($_POST['newsTag']) && !empty($_FILES['descFile']['name'])  && !empty($_FILES['videoLongFile']['name'])
-        && !empty($_FILES['previewImg']['name']) && count($_FILES['galleryImage']['name']) > 0 && !empty($_FILES['thumbImg']['name'])
+         && count($_FILES['galleryImage']['name']) > 0 && !empty($_FILES['thumbImg']['name'])
         && !empty($_FILES['videoLazy']['name']) 
 
         && !empty($_POST['uploaded_by']) && !empty($_POST['reporter']) && !empty($_POST['camera_man'])  
@@ -241,19 +241,6 @@ if(isset($_POST['submit']))
                 $video_long_status = true ;               
             }
 
-            $fileName = $_FILES['previewImg']['name'] ;
-            $fileExt = explode('.' , $fileName);
-            $fileActualExt_previewimg = strtolower(end($fileExt));
-
-            $file_type = $_FILES['previewImg']['type'] ;
-            $file_type_explode = explode("/" , $file_type);
-            $allowed = array('image' );
-
-            if (in_array($file_type_explode[0] , $allowed ))
-            {
-                $previewImg_status = true ;
-               
-            }
 
 
             $fileName = $_FILES['thumbImg']['name'] ;
@@ -384,7 +371,7 @@ if(isset($_POST['submit']))
 
             if(is_dir('../'.$newsdate))
             {
-                if($byline_lenght_status && $news_lang_status && $news_long_lazy_valid && $newsbody_status && $video_long_status &&  $previewImg_status &&  $thumbImg_status  &&  $videoLazy_status && $gallery_status && $audio_status && $videoExtra_status)
+                if($byline_lenght_status && $news_lang_status && $news_long_lazy_valid && $newsbody_status && $video_long_status &&  $thumbImg_status  &&  $videoLazy_status && $gallery_status && $audio_status && $videoExtra_status)
                 {
 
                     $date_file_name = str_replace("-","",$newsdate);
@@ -402,10 +389,7 @@ if(isset($_POST['submit']))
                     move_uploaded_file($video_long_tmp_name, $video_long_path) ;  
                     $video_long_path = $newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_videolong.".$fileActualExt_videolong;
 
-                    $preview_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_preview.".$fileActualExt_previewimg;
-                    $preview_tmp_name = $_FILES['previewImg']['tmp_name'] ;
-                    move_uploaded_file($preview_tmp_name, $preview_path) ;
-                    $preview_path = $newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_preview.".$fileActualExt_previewimg;
+                   
 
                     $thumbnail_path ="../".$newsdate."/".$date_file_name."_".$time_file_name."_".$news_id."_thumbnail.".$fileActualExt_thumbImg;
                     $thumbnail_tmp_name = $_FILES['thumbImg']['tmp_name'] ;
@@ -470,7 +454,7 @@ if(isset($_POST['submit']))
                     $query_new_news = "insert into nas(
                                          newsid , created_date ,  local_published_date ,
                                          byline ,  category_list ,                                       
-                                         videolong,  videolazy , previewgif ,thumbnail ,
+                                         videolong,  videolazy  ,thumbnail ,
                                          audio ,  photos ,  newsbody ,  videoextra ,
                                          tag_list , uploaded_by , reporter ,
                                          camera_man , district , news_language 
@@ -478,7 +462,7 @@ if(isset($_POST['submit']))
                                         VALUES 
                                         ('$news_id', '$created_at' ,  '$newsdate' , 
                                          '$byLine' , '$newsCategories',
-                                         '$video_long_path' ,'$videolazy_path' , '$preview_path' , '$thumbnail_path',
+                                         '$video_long_path' ,'$videolazy_path'  , '$thumbnail_path',
                                          $audio_path , '$gallery_csv' , '$body_path' , $videoExtra_path ,
                                          '$tags' ,'$uploaded_by' ,  '$reporter' , 
                                          '$camera_man' , '$district', '$lang_selec'

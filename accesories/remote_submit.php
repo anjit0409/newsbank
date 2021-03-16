@@ -92,7 +92,7 @@ function ftp_delete_rem($file)
                 $row_content = mysqli_fetch_assoc($run_sql_content);
                 $byline_full = $row_content['byline'];
                 $videolong_full = $row_content['videolong'];
-                $preview_full = $row_content['previewgif'];
+                // $preview_full = $row_content['previewgif'];
                 $thumbnail_full = $row_content['thumbnail'];
                 $videolazy_full = $row_content['videolazy'];                        
                 $audio_full = $row_content['audio'];
@@ -103,6 +103,10 @@ function ftp_delete_rem($file)
 
                 $category_full = $row_content['category_list'];
                 $tags_full = $row_content['tag_list'];
+                $langauge_full = $row_content['news_language'];
+
+
+
 
                 $sql_content_web = "select * from web where newsid = '$news_id' ";
                 $run_sql_content_web= mysqli_query($connection, $sql_content_web);
@@ -113,7 +117,7 @@ function ftp_delete_rem($file)
                     $row_content_web = mysqli_fetch_assoc($run_sql_content_web);
                 
                     $videolong_full_web = $row_content_web['videolong'];
-                    $preview_full_web = $row_content_web['previewgif'];
+                    // $preview_full_web = $row_content_web['previewgif'];
                     $thumbnail_full_web = $row_content_web['thumbnail'];
                     $videolazy_full_web = $row_content_web['videolazy'];                            
                     $newsbody_full_web = $row_content_web['newsbody'];
@@ -127,10 +131,10 @@ function ftp_delete_rem($file)
                     else
                         $videolong_full_web = "'$videolong_full_web'";
 
-                    if($preview_full_web == '')
-                         $preview_full_web = "NULL";
-                        else
-                         $preview_full_web = "'$preview_full_web'";
+                    // if($preview_full_web == '')
+                    //      $preview_full_web = "NULL";
+                    //     else
+                    //      $preview_full_web = "'$preview_full_web'";
 
                     if($thumbnail_full_web == '')
                          $thumbnail_full_web = "NULL";
@@ -174,7 +178,7 @@ function ftp_delete_rem($file)
                 {
                     
                     $videolong_full_web = "NULL";
-                    $preview_full_web = "NULL";
+                    // $preview_full_web = "NULL";
                     $thumbnail_full_web = "NULL";
                     $videolazy_full_web = "NULL";                            
                     $newsbody_full_web = "NULL";
@@ -365,42 +369,42 @@ function ftp_delete_rem($file)
                     $push_videoLazy = $videolazy_full_web;
                 }
 
-                if(in_array('preview' ,$file_type ))
-                {
-                    if(file_exists('../'.$preview_full))
-                    {
-                        $sourceName = explode("/" ,$preview_full ) ;
-                        $sourceName = end($sourceName );
-                        if(ftp_remote('preview' , '../'.$preview_full , $sourceName))
-                        {
-                            // $push_preview = "'$preview_full'" ;
-                            $text = "$sourceName Preview Pushed\n";
-                            fwrite($myfile, $text);
+                // if(in_array('preview' ,$file_type ))
+                // {
+                //     if(file_exists('../'.$preview_full))
+                //     {
+                //         $sourceName = explode("/" ,$preview_full ) ;
+                //         $sourceName = end($sourceName );
+                //         if(ftp_remote('preview' , '../'.$preview_full , $sourceName))
+                //         {
+                //             // $push_preview = "'$preview_full'" ;
+                //             $text = "$sourceName Preview Pushed\n";
+                //             fwrite($myfile, $text);
                             
 
-                            $push_preview = "'$remote_file_server_path/preview/$sourceName'" ;
+                //             $push_preview = "'$remote_file_server_path/preview/$sourceName'" ;
 
-                        }
-                        else
-                        {
-                            $push_preview = "NULL";
-                            $text = "$sourceName Preview Failed to Pushed\n";
-                            fwrite($myfile, $text);
+                //         }
+                //         else
+                //         {
+                //             $push_preview = "NULL";
+                //             $text = "$sourceName Preview Failed to Pushed\n";
+                //             fwrite($myfile, $text);
                             
 
-                            $_SESSION['notice_remote'] = "Error";
-                        }
+                //             $_SESSION['notice_remote'] = "Error";
+                //         }
                          
-                    }
-                    else
-                    {
-                        $push_preview = "NULL";
-                    }
-                }   
-                else
-                {
-                    $push_preview = $preview_full_web;
-                }
+                //     }
+                //     else
+                //     {
+                //         $push_preview = "NULL";
+                //     }
+                // }   
+                // else
+                // {
+                //     $push_preview = $preview_full_web;
+                // }
 
 
 
@@ -549,7 +553,7 @@ function ftp_delete_rem($file)
                 {
 
                     $query_new_news_update = "update  web set 
-                       videolong = $push_videoLong , videolazy = $push_videoLazy , previewgif = $push_preview ,thumbnail = $push_thumbnail ,
+                       videolong = $push_videoLong , videolazy = $push_videoLazy  ,thumbnail = $push_thumbnail ,
                         audio = $push_audio  , photos = '$gall_img' , videoextra = $push_videoextra, newsbody = $push_newsbody,  
                          pushed_by = '$pushed_by' ,   pushed_date = '$pushed_at' where newsid = '$news_id'  ;";
                         // ) 
@@ -567,12 +571,12 @@ function ftp_delete_rem($file)
                 {
                     $wp_post = "NULL";
                     $query_new_news_push = "insert into web(
-                        newsid ,  videolong , videolazy , previewgif ,thumbnail ,
+                        newsid ,  videolong , videolazy ,thumbnail ,
                         audio   , photos , videoextra, newsbody ,  
                          pushed_by ,   pushed_date , wp_post_id
                         ) 
                         VALUES 
-                        ('$news_id',  $push_videoLong ,$push_videoLazy , $push_preview , $push_thumbnail,
+                        ('$news_id',  $push_videoLong ,$push_videoLazy  , $push_thumbnail,
                              $push_audio , '$gall_img', $push_videoextra , $push_newsbody , 
                             '$pushed_by' ,'$pushed_at' , $wp_post
                             
@@ -597,8 +601,10 @@ function ftp_delete_rem($file)
 
 
 
-                        $prieview_path = $preview_full ;
-                        $file = file_get_contents( '../'.$prieview_path );
+                        $thumbnail_path = $thumbnail_full ;
+                        $file = file_get_contents( '../'.$thumbnail_path );
+                        $file_name = explode("/" ,$thumbnail_path);
+                        $file_name = end($file_name);
                         
                         $url = 'http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
                         $ch = curl_init();
@@ -607,8 +613,8 @@ function ftp_delete_rem($file)
                         curl_setopt( $ch, CURLOPT_POST, 1 );
                         curl_setopt( $ch, CURLOPT_POSTFIELDS, $file );
                         curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-                            'Content-Disposition: form-data; filename="sanjeeb1.png"',
-                            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTIxOTU3NiwibmJmIjoxNjE1MjE5NTc2LCJleHAiOjE2MTU4MjQzNzYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.GDpI7VZvC7aSRpSI62lDWX4qIX0AZXpwxK5_n3Zkx1U' 
+                            'Content-Disposition: form-data; filename="'.$file_name.'"',
+                            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTg2MTE3MSwibmJmIjoxNjE1ODYxMTcxLCJleHAiOjE2MTY0NjU5NzEsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.cIO1V8I61UyjW3haiaIlBPBLimzrEaFB-6wURTpdWMw' 
                             ] );
                         
                         $result = curl_exec( $ch );
@@ -620,7 +626,7 @@ function ftp_delete_rem($file)
 
                         $push_newsbody_json = str_replace("'","",$push_newsbody);
 
-                        $content_json = "<div class='ead-preview'><div class='ead-document' style='position: relative;padding-top: 90%;'>
+                        $content_json = "<div class='ead-preview'><div class='ead-document' style='position: relative;padding-top: 50%;'>
                                                 <iframe src='//view.officeapps.live.com/op/embed.aspx?src=".$push_newsbody_json."' 
                                                     title='".$byline_full."' class='ead-iframe' style='width: 100%;height: 100%;border: none;position: absolute;left: 0;top: 0;'>
                                                     </iframe></div></div>";
@@ -635,7 +641,6 @@ function ftp_delete_rem($file)
 
                         $push_audio_json = str_replace("'","",$push_audio);
                         $gallery_full_web_json = str_replace("'","",$gall_img);
-                        $preview_full_web_json = str_replace("'","",$push_preview);
                         $thumbnail_full_web_json = str_replace("'","",$push_thumbnail);
                         
                      
@@ -646,9 +651,9 @@ function ftp_delete_rem($file)
                             "acf_fields" => array('video_long_link'=>$push_videoLong_json,'video_lazy_link'=>$push_videoLazy_json,
                                                     'video_extra_link' => $push_videoextra_json ,   'news_body_file' => $push_newsbody_json ,
                                                     'audio' =>    $push_audio_json,
-                                                    "gallery" => $gallery_full_web_json,
-                                                    "video_preview" => $preview_full_web_json,
-                                                    "video_thumbnail" => $thumbnail_full_web_json
+                                                    "gallery" => $gallery_full_web_json,                                                    
+                                                    "video_thumbnail" => $thumbnail_full_web_json,
+                                                    "language" => $langauge_full
                        ),
                             "featured_media" => $featured_media_id,
                             "video_category" => $category_full_arr,
@@ -658,7 +663,8 @@ function ftp_delete_rem($file)
                                                                             'haru_video_url_type'=> 'insert',
                                                                             'haru_video_url' => array('mp4' => $push_videoLazy_json , 'webm' => '')
                     )),
-                            "content" => $content_json,
+                            "content" => $content_json
+                        
                          
                         
                             );
@@ -677,7 +683,7 @@ function ftp_delete_rem($file)
                             CURLOPT_HTTPHEADER => array(
                                 "cache-control: no-cache",
                                 "content-type: application/json",
-                                'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTIxOTU3NiwibmJmIjoxNjE1MjE5NTc2LCJleHAiOjE2MTU4MjQzNzYsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.GDpI7VZvC7aSRpSI62lDWX4qIX0AZXpwxK5_n3Zkx1U' 
+                                'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTg2MTE3MSwibmJmIjoxNjE1ODYxMTcxLCJleHAiOjE2MTY0NjU5NzEsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.cIO1V8I61UyjW3haiaIlBPBLimzrEaFB-6wURTpdWMw' 
                             ),
                         ));
                     
@@ -769,7 +775,7 @@ function ftp_delete_rem($file)
 
                 $row_content = mysqli_fetch_assoc($run_sql_content);
                 $videolong_full = $row_content['videolong'];
-                $preview_full = $row_content['previewgif'];
+                // $preview_full = $row_content['previewgif'];
                 $thumbnail_full = $row_content['thumbnail'];
                 $videolazy_full = $row_content['videolazy'];                            
                 $newsbody_full = $row_content['newsbody'];
@@ -790,10 +796,10 @@ function ftp_delete_rem($file)
                         
                     }
 
-                    if($preview_full != NULL)
-                    {
-                        ftp_delete_rem($preview_full);
-                    }
+                    // if($preview_full != NULL)
+                    // {
+                    //     ftp_delete_rem($preview_full);
+                    // }
 
                     if($thumbnail_full != NULL)
                     {
@@ -827,7 +833,7 @@ function ftp_delete_rem($file)
                         ftp_delete_rem($ph);
                     }
 
-                    $sql_del_web = "update web set videolong = null , videolazy = null , previewgif = null ,
+                    $sql_del_web = "update web set videolong = null , videolazy = null ,
                                     thumbnail = null, audio = null , photos = null , videoextra = null , newsbody = null where newsid = '$news_id' ";
                     $run_sql_del_web= mysqli_query($connection, $sql_del_web);
                     if($run_sql_del_web)

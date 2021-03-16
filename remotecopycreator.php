@@ -25,7 +25,7 @@ else
 
 include "accesories/connection.php";
 
-$sql_byline = "select newsid, byline from nas where local_published_date = '$selected_date' order by created_date desc;";
+$sql_byline = "select newsid, byline,news_language from nas where local_published_date = '$selected_date' order by created_date desc;";
 $run_sql_byline= mysqli_query($connection, $sql_byline);
 $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
@@ -51,8 +51,17 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
     .disabled {
         cursor: no-drop;
     }
-    </style>
+    
+@font-face {
+    font-family: preeti;
+    src: url(preeti.TTF);
+}
 
+.form-nepali {
+    font-family: preeti;
+    font-size:19px
+}
+</style>
 </head>
 
 <body>
@@ -124,6 +133,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                 {
                                                     $by_line  = $row_byline['byline'];
                                                     $news_id= $row_byline['newsid'];
+                                                    $news_language= $row_byline['news_language'];
 
                                                     if( $is_get_id == 0 )
                                                     {
@@ -150,6 +160,15 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                         }
                                                     }
 
+                                                    if($news_language == 'nepali')
+                                                    {
+                                                        $font_style= "form-nepali";
+                                                    }
+                                                    else
+                                                    {
+                                                        $font_style= "";
+                                                    }
+
                                                     $counter++ ;
 
                                                     
@@ -164,7 +183,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                             <a class="nav-link list-group-item p-2 <?php echo  $active_id ; ?>"
                                                 href="remotecopycreator.php?news_id=<?php echo $news_id ; ?>&date=<?php echo $selected_date ; ?>"><?php echo $symbolNumber;?>.
-                                                <?php echo $by_line ; ?></a>
+                                                <span class="<?php echo $font_style ; ?>"><?php echo $by_line ; ?></span></a>
 
 
                                             <?php
@@ -190,7 +209,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                         $row_content = mysqli_fetch_assoc($run_sql_content);
 
                                                         $videolong_full = $row_content['videolong'];
-                                                        $preview_full = $row_content['previewgif'];
+                                                        // $preview_full = $row_content['previewgif'];
                                                         $thumbnail_full = $row_content['thumbnail'];
                                                         $videolazy_full = $row_content['videolazy'];                            
                                                         $newsbody_full = $row_content['newsbody'];
@@ -198,8 +217,8 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                         $videolong = explode('/' ,$videolong_full );
                                                         $videolong = end($videolong) ; 
 
-                                                        $preview = explode('/' ,$preview_full );
-                                                        $preview = end($preview) ; 
+                                                        // $preview = explode('/' ,$preview_full );
+                                                        // $preview = end($preview) ; 
 
                                                         $thumbnail = explode('/' ,$thumbnail_full );
                                                         $thumbnail = end($thumbnail) ; 
@@ -228,7 +247,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                                     $row_content_web = mysqli_fetch_assoc($run_sql_content_web);
                                                     $videolong_full_web = $row_content_web['videolong'];
-                                                    $preview_full_web = $row_content_web['previewgif'];
+                                                    // $preview_full_web = $row_content_web['previewgif'];
                                                     $thumbnail_full_web = $row_content_web['thumbnail'];
                                                     $videolazy_full_web = $row_content_web['videolazy'];                            
                                                     $newsbody_full_web = $row_content_web['newsbody'];
@@ -559,67 +578,67 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
 
                                             <?php
 
-                                            if(file_exists($preview_full))
-                                            {
-                                                if($preview_full_web != NULL)
-                                                {
-                                                    $input = 'disabled';
-                                                    $value_input = '';
-                                                    $ischecked = '';
-                                                    $message = '<span>'.$preview.'</span><span class="float-right">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                                                    </svg></span>
-                                                    ';
+                                            // if(file_exists($preview_full))
+                                            // {
+                                            //     if($preview_full_web != NULL)
+                                            //     {
+                                            //         $input = 'disabled';
+                                            //         $value_input = '';
+                                            //         $ischecked = '';
+                                            //         $message = '<span>'.$preview.'</span><span class="float-right">
+                                            //         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill text-success" viewBox="0 0 16 16">
+                                            //             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                            //         </svg></span>
+                                            //         ';
 
-                                                    $class_comp = '';
-                                                    $sta_d = 1 ;
-                                                }
-                                                else
-                                                {
-                                                    $input = '';
-                                                    $value_input = 'preview';
-                                                    $ischecked = 'checked';
-                                                    $message = '<span>'.$preview.'</span><span class="float-right">
-                                                    </span>
-                                                    ';
-                                                    $rem_to_push = 1 ;
-                                                    $class_comp = 'compulsory';
-                                                }
+                                            //         $class_comp = '';
+                                            //         $sta_d = 1 ;
+                                            //     }
+                                            //     else
+                                            //     {
+                                            //         $input = '';
+                                            //         $value_input = 'preview';
+                                            //         $ischecked = 'checked';
+                                            //         $message = '<span>'.$preview.'</span><span class="float-right">
+                                            //         </span>
+                                            //         ';
+                                            //         $rem_to_push = 1 ;
+                                            //         $class_comp = 'compulsory';
+                                            //     }
                                             
                                             
                                                 
-                                            }
-                                            else
-                                            {
+                                            // }
+                                            // else
+                                            // {
                                             
-                                                $input = 'disabled';
-                                                $value_input = '';
-                                                $message = "Preview GIF: File Doesn't Exist";
-                                                $ischecked = '';
-                                                $message = '<span>'.$preview.'</span><span class="float-right">
-                                                <span class="text-danger pr-2">Preview File Doesnt Exist in the Server</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
-                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
-                                                </svg></span>
-                                                    ';
-                                                    $class_comp = 'compulsory miss';
-                                            }
+                                            //     $input = 'disabled';
+                                            //     $value_input = '';
+                                            //     $message = "Preview GIF: File Doesn't Exist";
+                                            //     $ischecked = '';
+                                            //     $message = '<span>'.$preview.'</span><span class="float-right">
+                                            //     <span class="text-danger pr-2">Preview File Doesnt Exist in the Server</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill text-danger" viewBox="0 0 16 16">
+                                            //     <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                                            //     </svg></span>
+                                            //         ';
+                                            //         $class_comp = 'compulsory miss';
+                                            // }
 
                                         
                                         ?>
 
-                                            <div class="input-group ">
+                                            <!-- <div class="input-group ">
                                                 <div class="input-group-prepend">
                                                     <div class="input-group-text">
                                                         <input type="checkbox" name="file_name[]"
                                                             aria-label="Checkbox for following text input"
-                                                            <?php echo $ischecked ; ?>
-                                                            class="files big-checkbox <?php echo $class_comp ; ?>"
-                                                            value="<?php echo $value_input ; ?>" <?php echo $input ; ?>>
+                                                            <?php // echo $ischecked ; ?>
+                                                            class="files big-checkbox <?php //echo $class_comp ; ?>"
+                                                            value="<?php //echo $value_input ; ?>" <?php // echo $input ; ?>>
                                                     </div>
                                                 </div>
-                                                <div class="form-control"><?php echo $message ; ?></div>
-                                            </div>
+                                                <div class="form-control"><?php //echo $message ; ?></div>
+                                            </div> -->
 
                                             <?php
                                         
@@ -723,7 +742,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                     </span>
                                                     ';
                                                     $rem_to_push = 1 ;
-                                                    $class_comp = '';
+                                                    $class_comp = 'compulsory';
                                                     }
                                                 
                                                 
@@ -797,7 +816,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                         ';
                                                         $ischecked = 'checked';
                                                         $rem_to_push = 1 ;
-                                                        $class_comp = '';
+                                                        $class_comp = 'compulsory';
                                                     }
                                                 
                                                     
@@ -868,6 +887,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                             $input = 'disabled' ;
                                                             $selected = '';
                                                             array_push($sta_array , 1);
+                                                            $class_gall = "";
                                                         }
                                                         else
                                                         {
@@ -875,12 +895,14 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                                             $selected = 'checked';
                                                             $rem_to_push = 1 ;
                                                             array_push($sta_array , 0);
+                                                            $class_gall = "compulsory";
+
                                                         }
 
                                             ?>
                                                 <li>
                                                     <input type="checkbox" name="gall_img[]" value="<?php echo $ph_arr ; ?>"
-                                                        id="cb<?php echo $gal_counter ; ?>" class="files" <?php echo $selected ; ?>
+                                                        id="cb<?php echo $gal_counter ; ?>" class="files <?php echo $class_gall ; ?>" <?php echo $selected ; ?>
                                                         <?php echo $input ; ?> />
                                                     <label for="cb<?php echo $gal_counter ; ?>"><img
                                                             src="<?php echo $ph_arr ; ?>" /></label>
@@ -924,23 +946,23 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                             $sta_h = 1 ;
                                         }
 
-                                        if(isset($sta_g))
-                                        {
-                                            $sta_g = $sta_g ;
-                                        }
-                                        else
-                                        {
-                                            $sta_g = 1 ;
-                                        }
+                                        // if(isset($sta_g))
+                                        // {
+                                        //     $sta_g = $sta_g ;
+                                        // }
+                                        // else
+                                        // {
+                                        //     $sta_g = 1 ;
+                                        // }
 
-                                        if(isset($sta_f))
-                                        {
-                                            $sta_f = $sta_f ;
-                                        }
-                                        else
-                                        {
-                                            $sta_f = 1 ;
-                                        }
+                                        // if(isset($sta_f))
+                                        // {
+                                        //     $sta_f = $sta_f ;
+                                        // }
+                                        // else
+                                        // {
+                                        //     $sta_f = 1 ;
+                                        // }
 
 
                                         if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e  && $sta_h && $sta_g && $sta_f)

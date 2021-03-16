@@ -40,7 +40,7 @@ CHANGE COLUMN isexclusibe isexclusive
 boolean ; 
 
 ALTER TABLE nas
-DROP COLUMN isexclusive; 
+DROP COLUMN previewgif; 
 
 ALTER TABLE nas
 DROP COLUMN subscription_type; 
@@ -86,6 +86,9 @@ select * from web ;
 drop table web ;
 ALTER TABLE web
 ADD wp_post_id bigint;
+
+ALTER TABLE web
+DROP COLUMN previewgif;
 
 
 /* 
