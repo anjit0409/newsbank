@@ -965,7 +965,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                         // }
 
 
-                                        if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e  && $sta_h && $sta_g && $sta_f)
+                                        if($sta_a  && $sta_b  && $sta_c && $sta_e  && $sta_h && $sta_g && $sta_f)
                                         {
                                             $dis_pushhh = 'disabled';
                                             $curs_style= 'not-allowed';
@@ -1026,7 +1026,7 @@ $num_rows_byline = mysqli_num_rows($run_sql_byline);
                                             }
                                             else
                                             {
-                                                if($sta_a  && $sta_b  && $sta_c && $sta_d && $sta_e)
+                                                if($sta_a  && $sta_b  && $sta_c  && $sta_e)
                                                 {
                                                     $dis_pushhh = '';
                                                 }
