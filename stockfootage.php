@@ -81,7 +81,7 @@ h4 {
                     }
                     ?>
 
-                        <form method="POST" action="accesories/stock_submit">
+                        <form method="POST" action="accesories/stock_submit.php">
 
                             <div class="form-group">
                                 <label class=" p-0 col-lg-12">1.Stock Footage Title *
@@ -154,16 +154,16 @@ h4 {
                                     <br>
                                     <label class=" p-0 col-lg-12">4. Submit Stock Footage in website
                                         <div>
-                                            <button id="submitbtn" type="button" class="btn btn-primary mt-2"
-                                                onclick="submitloader()">Post Stock Footage</button>
+                                            <input value="Post Stock Footage" id="submitbtn" type="submit" name="submit" class="btn btn-primary mt-2"
+                                               >
                                         </div>
                                         <div>
-                                            <button id="loaderbtn" class="btn btn-warning mt-2" type="button"
+                                            <!-- <button id="loaderbtn" class="btn btn-warning mt-2" type="button"
                                                 style="display: none;" disabled>
                                                 <span class="spinner-border spinner-border-sm" role="status"
                                                     aria-hidden="true"></span>
                                                 Posting Stock Footage ...
-                                            </button>
+                                            </button> -->
                                         </div>
 
 

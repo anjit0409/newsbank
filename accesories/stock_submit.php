@@ -2,7 +2,7 @@
 
 include "connection.php";
 session_start();
-
+print_r($_POST);
 $remote_file_server_path = 'https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock';
 
 function ftp_remote($folder , $DestName , $sourceName)
@@ -31,11 +31,11 @@ function ftp_remote($folder , $DestName , $sourceName)
 
 if(isset($_POST['submit']))
 {
-    if( isset($_POST['title']) && isset($_FILES['video']) && isset($_FILES['thumb'])  ) 
-    {
-        if( !empty($_POST['title']) && !empty($_FILES['video']['name'])  && !empty($_FILES['thumb']['name']))
+    if( isset($_POST['title'])  ) 
+    { 
+        if( !empty($_POST['title']) )
         {
-
+           
             
                 $title = $_POST['title'];
                 $title = mysqli_real_escape_string($connection, $title);
@@ -69,6 +69,8 @@ if(isset($_POST['submit']))
                 {
                     $thumbImg_status = true ;               
                 }
+                $thumbImg_status = true ; 
+                $video_long_status = true;
 
                 if( $video_long_status &&  $thumbImg_status )
                 {
@@ -91,12 +93,15 @@ if(isset($_POST['submit']))
                     
                     $result = curl_exec( $ch );
                     $result = json_decode($result);
+                    $respCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
                     $result = json_decode(json_encode($result) , true);    
                     curl_close( $ch );
 
+
                     $featured_media_id  = $result['id'];
                     $vidoe_link = "https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock/".$b ;
-
+                        echo "$respCode";
 
                     $data_array =  array(
                         "status" => "publish" , 
@@ -142,7 +147,7 @@ if(isset($_POST['submit']))
 
                     $_SESSION['notice'] = 'success';
                    
-                   
+                  
 
                 }
                 else

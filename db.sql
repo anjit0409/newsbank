@@ -82,7 +82,7 @@ create table web(
 );
 
 select * from web ;
-
+update web set  wp_post_id = null where id = 2 ;
 drop table web ;
 ALTER TABLE web
 ADD wp_post_id bigint;
