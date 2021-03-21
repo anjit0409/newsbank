@@ -606,7 +606,7 @@ function ftp_delete_rem($file)
                         $file_name = explode("/" ,$thumbnail_path);
                         $file_name = end($file_name);
                         
-                        $url = 'http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
+                        $url = 'https://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
                         $ch = curl_init();
                         curl_setopt( $ch, CURLOPT_URL, $url );
                         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -619,8 +619,13 @@ function ftp_delete_rem($file)
                         
                         $result = curl_exec( $ch );
                         $result = json_decode($result);
-                        $result = json_decode(json_encode($result) , true);                        
+                        $result = json_decode(json_encode($result) , true);    
+                        $respCodess = curl_getinfo($ch, CURLINFO_HTTP_CODE);                    
                         curl_close( $ch );
+
+                     
+
+
                         
                         $featured_media_id  = $result['id'];
 
@@ -674,7 +679,7 @@ function ftp_delete_rem($file)
 
                         $curl = curl_init();
                         curl_setopt_array($curl, array(                    
-                        CURLOPT_URL => "http://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_video/",
+                        CURLOPT_URL => "https://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_video/",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_TIMEOUT => 30,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
