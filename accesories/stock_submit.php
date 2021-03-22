@@ -76,8 +76,18 @@ if(isset($_POST['submit']))
 
                 if( $video_long_status &&  $thumbImg_status )
                 {
-                    $a = $_FILES['video']['tmp_name'] ;
-                    $video_file_ftp = $a."_".time();
+                    
+
+                    $video_name = $_FILES['video']['tmp_name'] ;
+                    $fileName_video = $_FILES['video']['name'] ;
+
+
+                    $video_name_file = time()."_".$fileName_video;
+                    $fileExt = explode('.' , $fileName_video);
+
+                    move_uploaded_file($video_name, "holds/$video_name_file") ;
+                    $video_send_path = "holds/$video_name_file";
+                    echo ftp_remote('stock' , $video_send_path , $video_name_file);
 
 
 
@@ -96,7 +106,6 @@ if(isset($_POST['submit']))
 
 
                     
-                    // echo ftp_remote('stock' , $a , $video_file_ftp);
 
                     $url = 'https://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
                     $ch = curl_init();
@@ -123,7 +132,7 @@ if(isset($_POST['submit']))
 
 
                     $featured_media_id  = $result['id'];
-                    $vidoe_link = "https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock/".$b ;
+                    $vidoe_link = "https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock/".$video_name_file ;
 
                         // echo "$respCode";
 
