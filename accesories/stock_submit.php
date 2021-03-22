@@ -2,7 +2,9 @@
 
 include "connection.php";
 session_start();
-print_r($_POST);
+// print_r($_POST);
+print_r($_FILES) ;
+
 $remote_file_server_path = 'https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock';
 
 function ftp_remote($folder , $DestName , $sourceName)
@@ -75,33 +77,55 @@ if(isset($_POST['submit']))
                 if( $video_long_status &&  $thumbImg_status )
                 {
                     $a = $_FILES['video']['tmp_name'] ;
-                    $b = $_FILES['thumb']['tmp_name'] ;
-                    $b = $b."_".time();
+                    $video_file_ftp = $a."_".time();
+
+
+
+
+
+                    $thum_name = $_FILES['thumb']['tmp_name'] ;
+                    $fileName = $_FILES['thumb']['name'] ;
+
+
+                    $thum_name_file = time()."_".$fileName;
+                    $fileExt = explode('.' , $fileName);
+                    $fileActualExt_videoExtra = strtolower(end($fileExt));
+
+                    move_uploaded_file($thum_name, "holds/$thum_name_file") ;
+                    $thumb_send_path = "holds/$thum_name_file";
+
+
                     
-                    ftp_remote('stock' , $a , $video_file_ftp);
+                    // echo ftp_remote('stock' , $a , $video_file_ftp);
 
                     $url = 'https://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
                     $ch = curl_init();
                     curl_setopt( $ch, CURLOPT_URL, $url );
                     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
                     curl_setopt( $ch, CURLOPT_POST, 1 );
-                    curl_setopt( $ch, CURLOPT_POSTFIELDS, $b );
+                    curl_setopt( $ch, CURLOPT_POSTFIELDS, $thumb_send_path );
                     curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-                        'Content-Disposition: form-data; filename="'.$title.'"',
-                        'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTg2MTE3MSwibmJmIjoxNjE1ODYxMTcxLCJleHAiOjE2MTY0NjU5NzEsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.cIO1V8I61UyjW3haiaIlBPBLimzrEaFB-6wURTpdWMw' 
+                        'Content-Disposition: form-data; filename="'.$thum_name_file.'"',
+                        'Content-Type: image/jpg',
+                        'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTYzMzAzNTMsImlzcyI6Imh0dHBzOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImV4cCI6MTYxNzE5NDM0NCwianRpIjoiZmRlNzg1MzktODg2Ni00OTY5LTk3ZWYtOTMzMGRkNDNhZDAzIiwidXNlcklkIjoxLCJyZXZvY2FibGUiOnRydWUsInJlZnJlc2hhYmxlIjoidHJ1ZSJ9.AzjdzRURHhwqSV4pSIvioJrH__sOiYy7SmjzNe3-iCI' 
                         ] );
                     
                     $result = curl_exec( $ch );
                     $result = json_decode($result);
-                    $respCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
                     $result = json_decode(json_encode($result) , true);    
+                    $respCodess = curl_getinfo($ch, CURLINFO_HTTP_CODE);                    
                     curl_close( $ch );
+
+                    unlink($thumb_send_path);
+
+                    // echo "b value: $b <br>";
+                    // echo "Media Respnse: ".print_r($result)."<br>";
 
 
                     $featured_media_id  = $result['id'];
                     $vidoe_link = "https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock/".$b ;
-                        echo "$respCode";
+
+                        // echo "$respCode";
 
                     $data_array =  array(
                         "status" => "publish" , 
@@ -133,7 +157,7 @@ if(isset($_POST['submit']))
                         CURLOPT_HTTPHEADER => array(
                             "cache-control: no-cache",
                             "content-type: application/json",
-                            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImlhdCI6MTYxNTg2MTE3MSwibmJmIjoxNjE1ODYxMTcxLCJleHAiOjE2MTY0NjU5NzEsImRhdGEiOnsidXNlciI6eyJpZCI6IjEifX19.cIO1V8I61UyjW3haiaIlBPBLimzrEaFB-6wURTpdWMw' 
+                            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTYzMzAzNTMsImlzcyI6Imh0dHBzOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImV4cCI6MTYxNzE5NDM0NCwianRpIjoiZmRlNzg1MzktODg2Ni00OTY5LTk3ZWYtOTMzMGRkNDNhZDAzIiwidXNlcklkIjoxLCJyZXZvY2FibGUiOnRydWUsInJlZnJlc2hhYmxlIjoidHJ1ZSJ9.AzjdzRURHhwqSV4pSIvioJrH__sOiYy7SmjzNe3-iCI' 
                         ),
                     ));
                 
@@ -143,7 +167,7 @@ if(isset($_POST['submit']))
                     $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
                     $err = curl_error($curl);                    
                     curl_close($curl);
-
+                   
 
                     $_SESSION['notice'] = 'success';
                    

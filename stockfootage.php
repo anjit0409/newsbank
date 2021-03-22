@@ -81,7 +81,7 @@ h4 {
                     }
                     ?>
 
-                        <form method="POST" action="accesories/stock_submit.php">
+                        <form method="POST" action="accesories/stock_submit.php" enctype="multipart/form-data">
 
                             <div class="form-group">
                                 <label class=" p-0 col-lg-12">1.Stock Footage Title *
