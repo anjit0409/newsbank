@@ -2,8 +2,6 @@
 
 include "connection.php";
 session_start();
-// print_r($_POST);
-print_r($_FILES) ;
 
 $remote_file_server_path = 'https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock';
 
@@ -43,6 +41,10 @@ if(isset($_POST['submit']))
                 $title = mysqli_real_escape_string($connection, $title);
 
 
+                $date = $_POST['date'];
+                $date = mysqli_real_escape_string($connection, $date);
+
+
 
                 
                 $fileName = $_FILES['video']['name'] ;
@@ -75,37 +77,14 @@ if(isset($_POST['submit']))
                 $video_long_status = true;
 
                 if( $video_long_status &&  $thumbImg_status )
-                {
-                    
-
-                    $video_name = $_FILES['video']['tmp_name'] ;
-                    $fileName_video = $_FILES['video']['name'] ;
-
-
-                    $video_name_file = time()."_".$fileName_video;
-                    $fileExt = explode('.' , $fileName_video);
-
-                    move_uploaded_file($video_name, "holds/$video_name_file") ;
-                    $video_send_path = "holds/$video_name_file";
-                    echo ftp_remote('stock' , $video_send_path , $video_name_file);
-
-
-
+                {                
 
 
                     $thum_name = $_FILES['thumb']['tmp_name'] ;
                     $fileName = $_FILES['thumb']['name'] ;
-
-
-                    $thum_name_file = time()."_".$fileName;
-                    $fileExt = explode('.' , $fileName);
-                    $fileActualExt_videoExtra = strtolower(end($fileExt));
-
+                    $thum_name_file = $date."_".time()."_".$fileName;
                     move_uploaded_file($thum_name, "holds/$thum_name_file") ;
-                    $thumb_send_path = "holds/$thum_name_file";
-
-
-                    
+                    $thumb_send_path = file_get_contents( "holds/$thum_name_file");              
 
                     $url = 'https://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/media';
                     $ch = curl_init();
@@ -114,9 +93,10 @@ if(isset($_POST['submit']))
                     curl_setopt( $ch, CURLOPT_POST, 1 );
                     curl_setopt( $ch, CURLOPT_POSTFIELDS, $thumb_send_path );
                     curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+
                         'Content-Disposition: form-data; filename="'.$thum_name_file.'"',
-                        'Content-Type: image/jpg',
                         'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTYzMzAzNTMsImlzcyI6Imh0dHBzOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImV4cCI6MTYxNzE5NDM0NCwianRpIjoiZmRlNzg1MzktODg2Ni00OTY5LTk3ZWYtOTMzMGRkNDNhZDAzIiwidXNlcklkIjoxLCJyZXZvY2FibGUiOnRydWUsInJlZnJlc2hhYmxlIjoidHJ1ZSJ9.AzjdzRURHhwqSV4pSIvioJrH__sOiYy7SmjzNe3-iCI' 
+                      
                         ] );
                     
                     $result = curl_exec( $ch );
@@ -125,35 +105,51 @@ if(isset($_POST['submit']))
                     $respCodess = curl_getinfo($ch, CURLINFO_HTTP_CODE);                    
                     curl_close( $ch );
 
-                    unlink($thumb_send_path);
-
-                    // echo "b value: $b <br>";
-                    // echo "Media Respnse: ".print_r($result)."<br>";
+                                      
 
 
                     $featured_media_id  = $result['id'];
-                    $vidoe_link = "https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock/".$video_name_file ;
 
-                        // echo "$respCode";
+
+                    $video_name = $_FILES['video']['tmp_name'] ;
+                    $fileName_video = $_FILES['video']['name'] ;
+                    $video_name_file = $date."_".time()."_".$fileName_video;
+                    move_uploaded_file($video_name, "holds/$video_name_file") ;
+                    $video_send_path = "holds/$video_name_file";
+
+
+                    $ftp = ftp_connect("ftp.sanjeebkc.com.np");
+                    ftp_login($ftp, "nepalnewsbank@sanjeebkc.com.np", "nepalnewsbank");
+                    ftp_pasv($ftp, true);
+                    ftp_put($ftp, "/stock/$video_name_file", "$video_send_path", FTP_BINARY); 
+                    ftp_close($ftp);
+
+                    unlink("holds/$thum_name_file"); 
+                    unlink($video_send_path);       
+                    
+
+
+
+
+                    $video_link = "https://sanjeebkc.com.np/nepalnewsclient/nepalnewsbank/stock/".$video_name_file ;
+
 
                     $data_array =  array(
                         "status" => "publish" , 
                         "title" => "$title",                    
                         "featured_media" => $featured_media_id,
                         "video_category" => "168",
-                        
-
                         "cmb2" => array('haru_video_metabox' => array('haru_video_server' => 'selfhost',
                                                                         'haru_video_url_type'=> 'insert',
-                                                                        'haru_video_url' => array('mp4' => $vidoe_link , 'webm' => '')
-                )),
+                                                                        'haru_video_url' => array('mp4' => $video_link , 'webm' => '')
+                        )),
                        
                     
                      
                     
                         );
 
-                        $data = json_encode($data_array);
+                    $data = json_encode($data_array);
 
                     $curl = curl_init();
                     curl_setopt_array($curl, array(                    
@@ -178,7 +174,7 @@ if(isset($_POST['submit']))
                     curl_close($curl);
                    
 
-                    $_SESSION['notice'] = 'success';
+                   $_SESSION['notice'] = 'success';
                    
                   
 
