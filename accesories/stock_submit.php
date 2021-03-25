@@ -139,6 +139,7 @@ if(isset($_POST['submit']))
                         "title" => "$title",                    
                         "featured_media" => $featured_media_id,
                         "video_category" => "168",
+                        
                         "cmb2" => array('haru_video_metabox' => array('haru_video_server' => 'selfhost',
                                                                         'haru_video_url_type'=> 'insert',
                                                                         'haru_video_url' => array('mp4' => $video_link , 'webm' => '')
@@ -164,6 +165,58 @@ if(isset($_POST['submit']))
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => "POST",
                     CURLOPT_POSTFIELDS => $data ,
+                        CURLOPT_HTTPHEADER => array(
+                            "cache-control: no-cache",
+                            "content-type: application/json",
+                            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTYzMzAzNTMsImlzcyI6Imh0dHBzOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImV4cCI6MTYxNzE5NDM0NCwianRpIjoiZmRlNzg1MzktODg2Ni00OTY5LTk3ZWYtOTMzMGRkNDNhZDAzIiwidXNlcklkIjoxLCJyZXZvY2FibGUiOnRydWUsInJlZnJlc2hhYmxlIjoidHJ1ZSJ9.AzjdzRURHhwqSV4pSIvioJrH__sOiYy7SmjzNe3-iCI' 
+                        ),
+                    ));
+                
+                    $response = curl_exec($curl);
+                    $response = json_decode($response);
+                    $response = json_decode(json_encode($response) , true);
+                    $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                    $err = curl_error($curl);                    
+                    curl_close($curl);
+
+
+                    $stock_footage_id = $response['id'] ;
+                    // echo "Stock Footage ID: ".$response['id']."<br><br>";
+
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(                    
+                    CURLOPT_URL => "https://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_series/906",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                    // CURLOPT_POSTFIELDS => $data ,
+                        CURLOPT_HTTPHEADER => array(
+                            "cache-control: no-cache",
+                            "content-type: application/json",
+                            'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTYzMzAzNTMsImlzcyI6Imh0dHBzOlwvXC9uZXBhbG5ld3NjbGllbnQuc2FuamVlYmtjLmNvbS5ucCIsImV4cCI6MTYxNzE5NDM0NCwianRpIjoiZmRlNzg1MzktODg2Ni00OTY5LTk3ZWYtOTMzMGRkNDNhZDAzIiwidXNlcklkIjoxLCJyZXZvY2FibGUiOnRydWUsInJlZnJlc2hhYmxlIjoidHJ1ZSJ9.AzjdzRURHhwqSV4pSIvioJrH__sOiYy7SmjzNe3-iCI' 
+                        ),
+                    ));
+                
+                    $response = curl_exec($curl);
+                    $response = json_decode($response);
+                    $response = json_decode(json_encode($response) , true);
+                    $respCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                    $err = curl_error($curl);                    
+                    curl_close($curl);
+
+                    array_push($response['cmb2']['haru_series_attached_videos_field']['haru_series_attached_videos'] , $stock_footage_id);
+                    
+                    
+                    $data_update = json_encode($response);
+                    $curl = curl_init();
+                    curl_setopt_array($curl, array(                    
+                    CURLOPT_URL => "https://nepalnewsclient.sanjeebkc.com.np/wp-json/wp/v2/haru_series/906",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => $data_update ,
                         CURLOPT_HTTPHEADER => array(
                             "cache-control: no-cache",
                             "content-type: application/json",
